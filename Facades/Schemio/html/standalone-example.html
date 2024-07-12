@@ -1,0 +1,24 @@
+<html>
+    <head>
+        <script src="/dist/assets/schemio-standalone.js"></script>
+        <link rel="stylesheet" href="/assets/schemio-standalone.css">
+        <link rel="stylesheet" href="/assets/syntax-highlight.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    </head>
+    <body>
+        <div id="app">loading</div>
+        <script>
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    schemioViewScheme('#app', JSON.parse(this.responseText), {
+                        sidePanelWidth: 400
+                    });
+                }
+            };
+
+            xhttp.open('GET', '/test-data/test-scheme-2.json', true);
+            xhttp.send();
+        </script>
+    </body>
+</html>
