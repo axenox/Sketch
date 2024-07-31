@@ -10,6 +10,7 @@ use exface\Core\DataTypes\FilePathDataType;
 use exface\Core\DataTypes\MimeTypeDataType;
 use function GuzzleHttp\Psr7\stream_for;
 use exface\Core\Facades\AbstractHttpFacade\Middleware\AuthenticationMiddleware;
+use axenox\Sketch\Facades\Schemio\SchemioFs;
 
 /**
  * 
@@ -25,35 +26,60 @@ class SchemioFacade extends AbstractHttpFacade
         $path = $uri->getPath();
         $headers = $this->buildHeadersCommon();
         
-        $baseUrl = $this->getWorkbench()->getUrl();
-        $appUrl = $baseUrl . $this->getUrlRouteDefault();
-        
         // api/schemio/index.html/ -> index.html
         $pathInFacade = mb_strtolower(StringDataType::substringAfter($path, $this->getUrlRouteDefault() . '/'));
+        list($appVendor, $appAlias, $pathInFacade) = explode('/', $pathInFacade, 3);
+        
+        $baseUrl = $this->getWorkbench()->getUrl();
+        $schemioUrl = $baseUrl . $this->getUrlRouteDefault() . '/' . $appVendor . '/' . $appAlias;
         
         // Do the routing here
         switch (true) {     
+            // main app script
             case StringDataType::endsWith($pathInFacade, 'schemio.app.js'):
                 $filePath = $filePath = $this->getFilePath($pathInFacade);
                 $body = file_get_contents($filePath);
                 $body = str_replace([
-                    'rootPath: "/",',
-                    'assetsPath: "/assets",',
-                    '"/v1/'
-                ], [
-                    'rootPath: "' . $appUrl . '",',
-                    'assetsPath: "' . $appUrl . '/assets",',
-                    '"v1/'
-                ], $body);
+                        'rootPath: "/",',
+                        'assetsPath: "/assets",',
+                        '"/v1/',
+                        '`/v1/'
+                    ], [
+                        'rootPath: "' . $schemioUrl . '",',
+                        'assetsPath: "' . $schemioUrl . '/assets",',
+                        '"v1/',
+                        '`v1/'
+                    ], 
+                    $body
+                );
                 $headers['Content-Type'] = 'text/javascript';
                 $responseCode = 200;
                 break;
+                
+            // e.g. assets/templates/index.json
+            case StringDataType::endsWith($pathInFacade, 'index.json'):
+                $filePath = $filePath = $this->getFilePath($pathInFacade);
+                $body = file_get_contents($filePath);
+                $body = str_replace([
+                        '"/',
+                    ], [
+                        '"'
+                    ], 
+                    $body
+                );
+                $headers['Content-Type'] = 'text/javascript';
+                $responseCode = 200;
+                break;
+                
+            // Static assets
             case StringDataType::endsWith($pathInFacade, '.html') && $pathInFacade !== 'index.html':
             case StringDataType::endsWith($pathInFacade, '.css'):
             case StringDataType::endsWith($pathInFacade, '.js'):
             case StringDataType::endsWith($pathInFacade, '.png'):
             case StringDataType::endsWith($pathInFacade, '.woff2'):
             case StringDataType::endsWith($pathInFacade, '.tff'):
+            case StringDataType::endsWith($pathInFacade, '.svg'):
+            case StringDataType::endsWith($pathInFacade, '.json'):
                 $folder = StringDataType::endsWith($pathInFacade, '.html') ? 'html' : '';
                 $filePath = $this->getFilePath($folder . DIRECTORY_SEPARATOR . $pathInFacade);
                 if ($filePath !== null) {
@@ -65,22 +91,34 @@ class SchemioFacade extends AbstractHttpFacade
                     $responseCode = 404;
                 }
                 break;
+            
+            // API
             case StringDataType::startsWith($pathInFacade, 'v1/fs'):
-                $json = [
-                    "path" => "",
-                    "viewOnly" => false,
-                    "entries" => []
-                ];
+                $fsBase = $this->getWorkbench()->filemanager()->getPathToVendorFolder() . DIRECTORY_SEPARATOR . $appVendor . DIRECTORY_SEPARATOR . $appAlias;
+                $fsPath = StringDataType::substringAfter($pathInFacade, 'v1/fs');
+                $fs = new SchemioFs($fsBase);
+                $requestBody = $request->getBody()->__toString();
+                $json = $fs->process($fsPath, $request->getMethod(), ($requestBody === '' ? [] : json_decode($requestBody, true)));
                 $body = json_encode($json);
                 $headers['Content-Type'] = 'application/json';
                 $responseCode = 200;
                 break;
+            
+            // index.html
             case $pathInFacade === null:
             case $pathInFacade === '':
             case $pathInFacade === 'index.html':
             default:
                 $filePath = $this->getFilePath('html' . DIRECTORY_SEPARATOR . 'index.html');
                 $body = file_get_contents($filePath);
+                $body = str_replace([
+                        '<head>'
+                    ], [
+                        '<head>
+                            <base href="' . $schemioUrl . '/">'
+                    ], 
+                    $body
+                );
                 $type = MimeTypeDataType::findMimeTypeOfFile($filePath);
                 $headers['Content-Type'] = $type;
                 $responseCode = 200;
