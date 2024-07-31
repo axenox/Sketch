@@ -97,7 +97,7 @@ class SchemioFs
         ];
         // TODO Add description
         $path = $this->basePath . DIRECTORY_SEPARATOR . $data['name'] . '.schemio.json';
-        file_put_contents($path, json_encode($json));
+        file_put_contents($path, json_encode($json, JSON_UNESCAPED_UNICODE|JSON_PRETTY_PRINT));
         
         return $data;
     }
