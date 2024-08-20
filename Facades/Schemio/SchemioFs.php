@@ -6,6 +6,7 @@ use exface\Core\DataTypes\StringDataType;
 use exface\Core\CommonLogic\Filemanager;
 use exface\Core\Exceptions\FileNotFoundError;
 use exface\Core\DataTypes\BinaryDataType;
+use exface\Core\Exceptions\FileNotReadableError;
 
 class SchemioFs
 {
@@ -29,10 +30,13 @@ class SchemioFs
             "viewOnly" => false,
             "entries" => []
         ];
+        // Routing similarly to https://github.com/ishubin/schemio/blob/master/src/server/server.js
         switch (true) {
+            // /v1/fs/list
             case StringDataType::endsWith($command, '/list'):
                 $json = $this->list('');
                 break;
+            // /v1/fs/list/*
             case StringDataType::startsWith($command, '/list/'):
                 $path = StringDataType::substringAfter($command, '/list/');
                 $json = $this->list($path);
@@ -43,6 +47,7 @@ class SchemioFs
             case StringDataType::endsWith($command, '/docs') && $method === 'POST':
                 $json = $this->writeDoc('', $data, $params);
                 break;
+            // /v1/fs/docs/:docId
             case stripos($command, '/docs/') !== false:
                 $id = StringDataType::substringAfter($command, '/docs/');
                 switch ($method) {
@@ -121,10 +126,22 @@ class SchemioFs
     {
         $pathname = $this->getFilePathFromId($base64Url);
         $filePath = $this->basePath . DIRECTORY_SEPARATOR . $pathname;
+        
+        // Read the file
         if (! file_exists($filePath)) {
-            throw new FileNotFoundError('File not found');
+            throw new FileNotFoundError('File not found: "' . $pathname . '"');
         }
-        $doc = json_decode(file_get_contents($filePath), true);
+        $json = file_get_contents($filePath);
+        if ($json === false) {
+            throw new FileNotReadableError('Cannot read "' . $pathname . '"');
+        }
+        $doc = json_decode($json, true);
+        if ($doc === null) {
+            throw new FileNotReadableError('Cannot read "' . $pathname . '"');
+        }
+        
+        // Update data to make sure it matches the provided id (in case the file
+        // was modified/broken by git operations or copied manually).
         $doc['folderPath'] = FilePathDataType::findFolder($pathname);
         $doc['id'] = $base64Url;
         if (array_key_exists('scheme', $doc)) {
@@ -132,6 +149,8 @@ class SchemioFs
             $doc['scheme']['id'] = $base64Url;
             $doc['scheme']['name'] = StringDataType::substringBefore($filename, '.schemio.json', $filename);
         }
+        
+        // Return the consitent document structure
         return $doc;
     }
     
@@ -144,11 +163,26 @@ class SchemioFs
         return json_decode(file_get_contents($filePath), true);
     }
     
+    /**
+     * Encodes the given relative path (relative to the Sketches/ folder) as Base64URL
+     * 
+     * These ids are used by the frontend as parts of the URL to read and write
+     * documents. It seems, the id can be anything, but it must be URL compatible.
+     * This is why we use Base64URL here (Base64 itself is not URL compatible).
+     * 
+     * @param string $pathname
+     * @return string
+     */
     protected function getIdFromFilePath(string $pathname) : string
     {
         return BinaryDataType::convertTextToBase64URL($pathname);
     }
     
+    /**
+     * 
+     * @param string $base64Url
+     * @return string
+     */
     protected function getFilePathFromId(string $base64Url) : string
     {
         return BinaryDataType::convertBase64URLToText($base64Url);
