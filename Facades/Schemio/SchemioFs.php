@@ -68,16 +68,31 @@ class SchemioFs
         $abs = $this->basePath . DIRECTORY_SEPARATOR . FilePathDataType::normalize($path, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR;
         $files = glob("{$abs}*");
         $json = [];
+        
+        $parents = [];
+        $crumbPath = '/';
+        $crumbs = explode('/', $path ?? '');
+        foreach ($crumbs as $crumb) {
+            if ($crumb === '') {
+                continue;
+            }
+            $crumbPath .= ($crumbPath !== '' ? '/' : '') . $crumb;
+            $parents[] = $this->getIdFromFilePath($crumbPath);
+        }
+        
         foreach ($files as $file) {
             $filePath = FilePathDataType::normalize(StringDataType::substringAfter($file, $abs), '/');
+            $pathname = $path . '/' . $filePath;
             $data = [
-                'path' => $path . '/' . $filePath
+                'path' => $pathname
             ];
             switch (true) {
                 case is_dir($file): 
                     $data['kind'] = 'dir'; 
                     $data['name'] = FilePathDataType::findFileName($filePath);
+                    $data['id'] = $this->getIdFromFilePath($pathname);
                     $data['children'] = [];
+                    $data['parents'] = $parents;
                     break;
                 case StringDataType::endsWith($file, '.schemio.json'): 
                     $filename = FilePathDataType::findFileName($filePath, true);
@@ -90,9 +105,11 @@ class SchemioFs
             $json[] = $data;
         }
         return [
+            "id" => $this->getIdFromFilePath($path ?? ''),
             "path" => $path,
             "viewOnly" => false,
-            "entries" => $json
+            "entries" => $json,
+            "parents" => $parents
         ];
     }
     
