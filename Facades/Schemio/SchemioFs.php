@@ -11,26 +11,26 @@ use exface\Core\Exceptions\FileNotReadableError;
 class SchemioFs
 {
     private $basePath = '';
-    
+
     public function __construct(string $basePath)
     {
-        if (! StringDataType::endsWith($basePath, 'Sketches')) {
+        if (!StringDataType::endsWith($basePath, 'Sketches')) {
             $basePath = $basePath . DIRECTORY_SEPARATOR . 'Sketches';
-            if (! is_dir($basePath)) {
+            if (!is_dir($basePath)) {
                 Filemanager::pathConstruct($basePath);
             }
         }
-        $this->basePath = $basePath;
+        $this->basePath = $basePath; //folderım into this path
     }
-    
-    public function process(string $command, string $method, array $data, array $params = []) : array
-    {
+
+    public function process(string $command, string $method, array $data, array $params): array
+    { 
         $json = [
             "path" => '',
             "viewOnly" => false,
             "entries" => []
         ];
-        // Routing similarly to https://github.com/ishubin/schemio/blob/master/src/server/server.js
+        // Routing similarly to https://github.com/ishubin/schemio/blob/master/src/server/server.j
         switch (true) {
             // /v1/fs/list
             case StringDataType::endsWith($command, '/list'):
@@ -44,14 +44,49 @@ class SchemioFs
             case StringDataType::endsWith($command, '/art'):
                 $json = []; // TODO
                 break;
-            case StringDataType::endsWith($command, '/docs') && $method === 'POST':
-                $json = $this->writeDoc('', $data, $params);
-                break;
-            // /v1/fs/docs/:docId
-            case stripos($command, '/docs/') !== false:
-                $id = StringDataType::substringAfter($command, '/docs/');
+            case StringDataType::endsWith($command, '/dir'):
                 switch ($method) {
                     case 'POST':
+                        $json = $this->createDirectory('', $data);
+                        break;
+                    case 'PUT':
+                        break;
+                    case 'GET':
+                        break;
+                }
+                break;
+            // /v1/fs/docs/:docId
+            case StringDataType::endsWith($command, '/docs'):
+                switch ($method) {
+                    case 'POST':
+                        $json = $this->writeDoc('', $data, $params);
+                        break;
+                    case 'PUT':
+                        $json = $this->writeDoc('', $data);
+                        break;
+                    case 'GET':
+                        $filename = StringDataType::substringAfter($command, '/docs');
+ 
+                        $json = $this->readDoc('', $filename);
+                        break;
+                }
+                break;
+
+            // /docs/<file or id>
+            case stripos($command, '/docs/') !== false:
+                // $filename = StringDataType::substringAfter($command, '/docs/');
+                $id = StringDataType::substringAfter($command, '/docs/');
+                switch ($method) {
+                    case strpos($method, 'DELETE') !== false:
+                        
+                        $param = $params['query']; 
+                        parse_str($param, $queryArray);
+                        $path = $queryArray['path'] ?? '';
+ 
+                        $test = FilePathDataType::normalize(rtrim($this->basePath, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR . $command , DIRECTORY_SEPARATOR);
+                        $this-> deleteFile(FilePathDataType::normalize($test,DIRECTORY_SEPARATOR)); 
+                    case 'POST':
+
                     case 'PUT':
                         $json = $this->writeDocById($id, $data);
                         break;
@@ -62,13 +97,39 @@ class SchemioFs
         }
         return $json;
     }
-    
+ 
+    function deleteFile($filePath)
+    { 
+        $directoryPath = $this->basePath;
+        $directoryPath = $_POST['directoryPath'] ?? $directoryPath;
+        $filePath = "C:/wamp64/www/exface/vendor/axenox/sketch/Sketches/b.schemio.json"; //TODO
+        if ($filePath && file_exists($filePath)) {
+            if (unlink($filePath)) { 
+                return $this->deleteFromFileIndex($filePath);
+            } else {
+                throw new Exception("During the deletion, an error accoured: $filePath");
+            }
+        } else {
+            throw new Exception("File does not exist: $filePath");
+        }
+    }
+
+    protected function deleteFromFileIndex($filePath)
+    { 
+        return true;
+    }
+
+    protected function deleteFolder()
+    {
+
+    }
+
     protected function list(string $path) : array
     {
         $abs = $this->basePath . DIRECTORY_SEPARATOR . FilePathDataType::normalize($path, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR;
         $files = glob("{$abs}*");
         $json = [];
-        
+           
         $parents = [];
         $crumbPath = '/';
         $crumbs = explode('/', $path ?? '');
@@ -80,6 +141,7 @@ class SchemioFs
             $parents[] = $this->getIdFromFilePath($crumbPath);
         }
         
+
         foreach ($files as $file) {
             $filePath = FilePathDataType::normalize(StringDataType::substringAfter($file, $abs), '/');
             $pathname = $path . '/' . $filePath;
@@ -112,10 +174,9 @@ class SchemioFs
             "parents" => $parents
         ];
     }
-    
-    protected function writeDoc(string $path, array $data) : array
+
+    protected function writeDoc(string $path, array $data): array
     {
-        
         $filename = $data['name'] . '.schemio.json';
         $data['id'] = $this->getIdFromFilePath($path . '/' . $filename); // TODO Add path here?
         
@@ -130,7 +191,7 @@ class SchemioFs
         
         return $data;
     }
-    
+
     protected function writeDocById(string $base64Url, array $data) : array
     {
         $pathname = $this->getFilePathFromId($base64Url);
@@ -143,7 +204,7 @@ class SchemioFs
     {
         $pathname = $this->getFilePathFromId($base64Url);
         $filePath = $this->basePath . DIRECTORY_SEPARATOR . $pathname;
-        
+            
         // Read the file
         if (! file_exists($filePath)) {
             throw new FileNotFoundError('File not found: "' . $pathname . '"');
@@ -166,20 +227,58 @@ class SchemioFs
             $doc['scheme']['id'] = $base64Url;
             $doc['scheme']['name'] = StringDataType::substringBefore($filename, '.schemio.json', $filename);
         }
-        
         // Return the consitent document structure
         return $doc;
     }
-    
-    protected function readDoc(string $path, string $name) : array
+
+    protected function readDoc(string $path, string $name): array
     {
-        $filePath = $this->basePath . DIRECTORY_SEPARATOR . $path . DIRECTORY_SEPARATOR . $name . '.schemio.json';
-        if (! file_exists($filePath)) {
+        $filePath = str_replace('\\\\', '\\', $this->basePath . DIRECTORY_SEPARATOR . $path . DIRECTORY_SEPARATOR . $name . '.schemio.json');
+        if (!file_exists($filePath)) {
             throw new FileNotFoundError('File not found');
         }
         return json_decode(file_get_contents($filePath), true);
     }
-    
+
+    protected function createDirectory(string $path, array $data): array
+    {
+        $parent_directory = $data['path'] ?? '';
+        $new_directory = $data['name'] ?? '';
+
+
+        $directoryPath = $this->basePath;
+        $directoryPath = $_POST['directoryPath'] ?? $directoryPath;
+
+
+        $fullPath = rtrim($directoryPath, '/') . '/' . trim($parent_directory, '/') . '/' . $new_directory;
+
+        $permissions = 0755;
+
+
+        if (!is_dir($fullPath)) {
+            if (mkdir($fullPath, $permissions, true)) {
+
+            } else {
+                throw new FileNotFoundError('Failed to create directory 1');
+            }
+        } else {
+            // return $data;
+            throw new FileNotFoundError("Test");
+            // return [
+            //     'error'=> 'Directory already exists'
+            // ];
+
+            // throw new FileNotFoundError('Directory already exists 1');
+        }
+
+        $data['id'] = $new_directory;
+        $data['kind'] = 'dir';
+        $data['path'] = $parent_directory . '/' . $new_directory;
+
+
+        return $data;
+    }
+
     /**
      * Encodes the given relative path (relative to the Sketches/ folder) as Base64URL
      * 

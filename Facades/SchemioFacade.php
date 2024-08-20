@@ -25,6 +25,7 @@ class SchemioFacade extends AbstractHttpFacade
         $uri = $request->getUri();
         $path = $uri->getPath();
         $headers = $this->buildHeadersCommon();
+        $parsedUrl = parse_url($uri);
         
         // api/schemio/index.html/ -> index.html
         $pathInFacade = StringDataType::substringAfter($path, $this->getUrlRouteDefault() . '/');
@@ -91,13 +92,13 @@ class SchemioFacade extends AbstractHttpFacade
                     $responseCode = 404;
                 }
                 break;
-            
+             
             // API
             case StringDataType::startsWith($pathInFacade, 'v1/fs'):
                 $fsBase = $this->getWorkbench()->filemanager()->getPathToVendorFolder() . DIRECTORY_SEPARATOR . $appVendor . DIRECTORY_SEPARATOR . $appAlias;
                 $fsPath = StringDataType::substringAfter($pathInFacade, 'v1/fs');
                 $fs = new SchemioFs($fsBase);
-                $requestBody = $request->getBody()->__toString();
+                $requestBody = $request->getBody()->__toString(); 
                 $json = $fs->process($fsPath, $request->getMethod(), ($requestBody === '' ? [] : json_decode($requestBody, true)), $request->getQueryParams());
                 $body = json_encode($json);
                 $headers['Content-Type'] = 'application/json';
