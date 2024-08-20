@@ -27,7 +27,7 @@ class SchemioFacade extends AbstractHttpFacade
         $headers = $this->buildHeadersCommon();
         
         // api/schemio/index.html/ -> index.html
-        $pathInFacade = mb_strtolower(StringDataType::substringAfter($path, $this->getUrlRouteDefault() . '/'));
+        $pathInFacade = StringDataType::substringAfter($path, $this->getUrlRouteDefault() . '/');
         list($appVendor, $appAlias, $pathInFacade) = explode('/', $pathInFacade, 3);
         
         $baseUrl = $this->getWorkbench()->getUrl();
@@ -98,7 +98,7 @@ class SchemioFacade extends AbstractHttpFacade
                 $fsPath = StringDataType::substringAfter($pathInFacade, 'v1/fs');
                 $fs = new SchemioFs($fsBase);
                 $requestBody = $request->getBody()->__toString();
-                $json = $fs->process($fsPath, $request->getMethod(), ($requestBody === '' ? [] : json_decode($requestBody, true)));
+                $json = $fs->process($fsPath, $request->getMethod(), ($requestBody === '' ? [] : json_decode($requestBody, true)), $request->getQueryParams());
                 $body = json_encode($json);
                 $headers['Content-Type'] = 'application/json';
                 $responseCode = 200;
