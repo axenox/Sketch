@@ -1,0 +1,29 @@
+{
+    "scheme": {
+        "id": "JTJGJTJGYSUyRmMlMkZ0NC5zY2hlbWlvLmpzb24",
+        "name": "t4",
+        "description": "<p>t4<\/p>",
+        "tags": [],
+        "items": [
+            {
+                "id": "IaygUM-HY",
+                "shape": "npoly",
+                "area": {
+                    "x": 388,
+                    "y": 127,
+                    "w": 176,
+                    "h": 103
+                },
+                "name": "N-Polygon",
+                "links": [],
+                "behavior": {
+                    "events": []
+                },
+                "tags": [],
+                "effects": []
+            }
+        ]
+    },
+    "folderPath": "\/\/a\/c",
+    "viewOnly": false
+}
