@@ -101,7 +101,14 @@ class SchemioFs
         return $json;
     }
  
-    function deleteFile($filePath)
+    /**
+     * TODO
+     * 
+     * @param mixed $filePath
+     * @throws \Exception
+     * @return bool
+     */
+    function deleteFile(string $filePath) : bool
     { 
         $directoryPath = $this->basePath;
         $directoryPath = $_POST['directoryPath'] ?? $directoryPath;
@@ -110,18 +117,18 @@ class SchemioFs
             if (unlink($filePath)) { 
                 return $this->deleteFromFileIndex($filePath);
             } else {
-                throw new Exception("During the deletion, an error accoured: $filePath");
+                throw new \Exception("During the deletion, an error accoured: $filePath");
             }
         } else {
-            throw new Exception("File does not exist: $filePath");
+            throw new \Exception("File does not exist: $filePath");
         }
     }
 
-    protected function deleteFromFileIndex($filePath)
-    { 
-        return true;
-    }
-
+    /**
+     * TODO 
+     * 
+     * @return void
+     */
     protected function deleteFolder()
     {
 
