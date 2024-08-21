@@ -59,7 +59,10 @@ class SchemioFs
             case StringDataType::endsWith($command, '/docs'):
                 switch ($method) {
                     case 'POST':
-                        $json = $this->writeDoc('', $data, $params);
+                       
+                        $path = $params['path'] ?? '';
+
+                        $json = $this->writeDoc($path, $data);
                         break;
                     case 'PUT':
                         $json = $this->writeDoc('', $data);
@@ -141,6 +144,18 @@ class SchemioFs
             $parents[] = $this->getIdFromFilePath($crumbPath);
         }
         
+        if($path !== '' && $path !== '/'){
+            $parent = FilePathDataType::findFolderPath($path);
+            $parent = $parent === '\\' ? '/' :$parent;
+            $json[] = [
+                'path' => $parent,
+                'kind' => 'dir',
+                'name' => '..',
+                'id' => $this->getIdFromFilePath($parent),
+                'children' => [],
+                'parents' => $parents
+            ];
+        }
 
         foreach ($files as $file) {
             $filePath = FilePathDataType::normalize(StringDataType::substringAfter($file, $abs), '/');
@@ -175,7 +190,7 @@ class SchemioFs
         ];
     }
 
-    protected function writeDoc(string $path, array $data): array
+    protected function writeDoc(string $path, array $data) : array
     {
         $filename = $data['name'] . '.schemio.json';
         $data['id'] = $this->getIdFromFilePath($path . '/' . $filename); // TODO Add path here?
@@ -195,7 +210,7 @@ class SchemioFs
     protected function writeDocById(string $base64Url, array $data) : array
     {
         $pathname = $this->getFilePathFromId($base64Url);
-        $path = FilePathDataType::findFolder($pathname);
+        $path = FilePathDataType::findFolderPath($pathname);
         
         return $this->writeDoc($path, $data);
     }
@@ -220,7 +235,8 @@ class SchemioFs
         
         // Update data to make sure it matches the provided id (in case the file
         // was modified/broken by git operations or copied manually).
-        $doc['folderPath'] = FilePathDataType::findFolder($pathname);
+        // $path = FilePathDataType::findFolderPath($pathname);
+        $doc['folderPath'] = FilePathDataType::findFolderPath($pathname);
         $doc['id'] = $base64Url;
         if (array_key_exists('scheme', $doc)) {
             $filename = FilePathDataType::findFileName($pathname, true);
