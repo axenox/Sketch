@@ -374,16 +374,8 @@ class SchemioFs
     {
         $filename = $this->getFilenameFromDocname($data['name']);
         $data['id'] = $this->getIdFromFilePath($path . '/' . $filename);
-        
-        $json = [
-            "scheme" => $data,
-            "folderPath" => ($path === '' ? null : $path),
-            "viewOnly" => false
-        ];
-        // TODO Add description
         $path = $this->basePath . DIRECTORY_SEPARATOR . $path . DIRECTORY_SEPARATOR . $filename;
-        file_put_contents($path, json_encode($json, JSON_UNESCAPED_UNICODE|JSON_PRETTY_PRINT));
-        
+        file_put_contents($path, json_encode($data, JSON_UNESCAPED_UNICODE|JSON_PRETTY_PRINT));
         return $data;
     }
 
@@ -461,21 +453,22 @@ class SchemioFs
         if ($json === false) {
             throw new FileNotReadableError('Cannot read "' . $pathname . '"');
         }
-        $doc = json_decode($json, true);
-        if ($doc === null) {
+        $scheme = json_decode($json, true);
+        if ($scheme === null) {
             throw new FileNotReadableError('Cannot read "' . $pathname . '"');
         }
         
         // Update data to make sure it matches the provided id (in case the file
         // was modified/broken by git operations or copied manually).
-        // $path = FilePathDataType::findFolderPath($pathname);
-        $doc['folderPath'] = FilePathDataType::findFolderPath($pathname);
-        $doc['id'] = $base64Url;
-        if (array_key_exists('scheme', $doc)) {
-            $filename = FilePathDataType::findFileName($pathname, true);
-            $doc['scheme']['id'] = $base64Url;
-            $doc['scheme']['name'] = $this->getDocnameFromFilename($filename);
-        }
+        $filename = FilePathDataType::findFileName($pathname, true);
+        $scheme['id'] = $base64Url;
+        $scheme['name'] = $this->getDocnameFromFilename($filename);
+        $doc = [
+            'folderPath' => FilePathDataType::findFolderPath($pathname),
+            'id' => $base64Url,
+            'modifiedTime' => $this->getFileMTime($filePath),
+            'scheme' => $scheme
+        ];
         // Return the consitent document structure
         return $doc;
     }
@@ -488,11 +481,19 @@ class SchemioFs
     */
     protected function readDoc(string $path, string $name): array
     {
-        $filePath = str_replace('\\\\', '\\', $this->basePath . DIRECTORY_SEPARATOR . $path . DIRECTORY_SEPARATOR . $this->getFilenameFromDocname($name));
+        $pathname = $path . '/' . $this->getFilenameFromDocname($name);
+        $filePath = str_replace('\\\\', '\\', $this->basePath . DIRECTORY_SEPARATOR . FilePathDataType::normalize($pathname, DIRECTORY_SEPARATOR));
         if (!file_exists($filePath)) {
             throw new FileNotFoundError('File not found');
         }
-        return json_decode(file_get_contents($filePath), true);
+        $scheme = json_decode(file_get_contents($filePath), true);
+        $doc = [
+            'folderPath' => FilePathDataType::findFolderPath($pathname),
+            'id' => $scheme['id'],
+            'modifiedTime' => $this->getFileMTime($filePath),
+            'scheme' => $scheme
+        ];
+        return $doc;
     }
 
     /**
