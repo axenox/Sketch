@@ -1,12 +1,15 @@
 <?php
 namespace axenox\Sketch\Facades\Schemio;
 
+use Exception;
 use exface\Core\DataTypes\FilePathDataType;
 use exface\Core\DataTypes\StringDataType;
 use exface\Core\CommonLogic\Filemanager;
+use exface\Core\Exceptions\DataSheets\DataSheetDeleteError;
 use exface\Core\Exceptions\FileNotFoundError;
 use exface\Core\DataTypes\BinaryDataType;
 use exface\Core\Exceptions\FileNotReadableError;
+use Symfony\Component\VarDumper\Exception\ThrowingCasterException;
 
 class SchemioFs
 {
@@ -20,7 +23,7 @@ class SchemioFs
                 Filemanager::pathConstruct($basePath);
             }
         }
-        $this->basePath = $basePath; //folderım into this path
+        $this->basePath = $basePath;
     }
 
     public function process(string $command, string $method, array $data, array $params): array
@@ -30,46 +33,63 @@ class SchemioFs
             "viewOnly" => false,
             "entries" => []
         ];
-        // Routing similarly to https://github.com/ishubin/schemio/blob/master/src/server/server.j
+        // Routing similarly to https://github.com/ishubin/schemio/blob/master/src/server/server.js
         switch (true) {
-            // /v1/fs/list
+            // /v1/fs/list -> fsListFilesRoute
             case StringDataType::endsWith($command, '/list'):
                 $json = $this->list('');
                 break;
-            // /v1/fs/list/*
+            // /v1/fs/list/* -> fsListFilesRoute
             case StringDataType::startsWith($command, '/list/'):
                 $path = StringDataType::substringAfter($command, '/list/');
                 $json = $this->list($path);
                 break;
+            // /v1/fs/ -> fsCreateArt
             case StringDataType::endsWith($command, '/art'):
                 $json = []; // TODO
                 break;
+            // /v1/fs/dir
             case StringDataType::endsWith($command, '/dir'):
                 switch ($method) {
+                    // fsCreateDirectory
                     case 'POST':
-                        $json = $this->createDirectory('', $data);
+                        $json = $this->createDirectory($data);
                         break;
                     case 'PUT':
                         break;
                     case 'GET':
                         break;
+                    // fsDeleteDirectory
+                   case 'DELETE':
+                        $param = $params['path'];   
+                        $param = $this-> getIdFromFilePath($param);
+                        $json = $this->deleteFile($param, false);
+                        break;
+                    // fsPatchDirectory
+                    case 'PATCH':
+                        $param = $params['path'];   
+                        $param = $this-> getIdFromFilePath($param);
+                        //TODO $json = $this->renameDirectory($param, $data);
+                    break;
                 }
-                break;
-            // /v1/fs/docs/:docId
+                break; 
             case StringDataType::endsWith($command, '/docs'):
                 switch ($method) {
-                    case 'POST':
-                       
+                    // /v1/fs/docs/:docId
+                    case 'POST':                       
                         $path = $params['path'] ?? '';
-
                         $json = $this->writeDoc($path, $data);
                         break;
                     case 'PUT':
                         $json = $this->writeDoc('', $data);
                         break;
-                    case 'GET':
+                    // see delete /v1/fs/docs/:schemeId
+                    case 'DELETE': //todo
                         $filename = StringDataType::substringAfter($command, '/docs');
- 
+                        $json = $this->deleteDoc($filename);
+                        break;
+                    case 'GET':
+                        $filename = StringDataType::substringAfter($command, '/docs'); 
                         $json = $this->readDoc('', $filename);
                         break;
                 }
@@ -77,63 +97,129 @@ class SchemioFs
 
             // /docs/<file or id>
             case stripos($command, '/docs/') !== false:
-                // $filename = StringDataType::substringAfter($command, '/docs/');
                 $id = StringDataType::substringAfter($command, '/docs/');
                 switch ($method) {
                     case strpos($method, 'DELETE') !== false:
-                        
-                        $param = $params['query']; 
-                        parse_str($param, $queryArray);
-                        $path = $queryArray['path'] ?? '';
- 
-                        $test = FilePathDataType::normalize(rtrim($this->basePath, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR . $command , DIRECTORY_SEPARATOR);
-                        $this-> deleteFile(FilePathDataType::normalize($test,DIRECTORY_SEPARATOR)); 
+                        $id = StringDataType::substringAfter($command, '/docs/');
+                        $this-> deleteDoc(FilePathDataType::normalize($id, DIRECTORY_SEPARATOR)); 
+                        break;
+                    // /v1/fs/docs/:schemeId
                     case 'POST':
 
                     case 'PUT':
+                        // fsSaveScheme --> calls when user clicked SAVE button
                         $json = $this->writeDocById($id, $data);
                         break;
                     case 'GET': 
                         $json = $this->readDocById($id);
                         break;
+                    // v1/fs/docs
+                    // fsPatchScheme 
+                    case 'PATCH':
+                        $json = $this->renameSchemeById($id, $data);
+                        break;
                 }
         }
         return $json;
     }
- 
-    /**
-     * TODO
-     * 
-     * @param mixed $filePath
-     * @throws \Exception
-     * @return bool
+      
+     /**
+     * Deletes the directory and subfiles
+     * It calls the 'deleteFile' function recursively to delete nested subfolders. If 'forceDelete' (nested delete) is true, subfolders are also deleted.
+     * @param string $base64Url
+     * @param bool $forceDelete
+     * @return array
      */
-    function deleteFile(string $filePath) : bool
-    { 
-        $directoryPath = $this->basePath;
-        $directoryPath = $_POST['directoryPath'] ?? $directoryPath;
-        $filePath = "C:/wamp64/www/exface/vendor/axenox/sketch/Sketches/b.schemio.json"; //TODO
-        if ($filePath && file_exists($filePath)) {
-            if (unlink($filePath)) { 
-                return $this->deleteFromFileIndex($filePath);
+    function deleteFile(string $base64Url, bool $forceDelete = false) : array { 
+        $result = [];
+        $pathname = $this->getFilePathFromId($base64Url);
+        $path = FilePathDataType::findFolderPath($pathname);
+     
+        $directoryPath = $this->basePath; 
+        if (!$forceDelete) {
+            $fullPath = rtrim($directoryPath, '/') . '/' . trim($pathname, '/');
+        }
+        else{
+            $fullPath = $pathname;
+        }
+
+        $fixedPath = str_replace('\\', '/', $fullPath);
+    
+        if (is_dir($fixedPath)) {
+            // Get files and subfolders in folder
+            $files = array_diff(scandir($fixedPath), ['.', '..']);
+            
+            foreach ($files as $file) {
+                $forceDelete = true;
+                $filePath = $fixedPath . '/' . $file;
+                if (is_dir($filePath)) {
+                    // If this is a folder, call deleteFile recursively to delete its contents
+                    if ($forceDelete !== false) {
+                        $this->deleteFile($this->getIdFromFilePath($filePath), true);
+                    } else {
+                        $result['status'] = 'Error';
+                        $result['message'] = 'Cannot delete folder: It contains subfolders and force delete is not enabled.';
+                        return $result;
+                    }
+                } else {
+                    // If this is a file, delete it
+                    unlink($filePath);
+                }
+            }
+    
+            // Delete this folder after all files and subfolders are deleted
+            if (count(array_diff(scandir($fixedPath), ['.', '..'])) == 0) {
+                if (rmdir($fixedPath)) {
+                    $result['status'] = 'Success';
+                    $result['message'] = 'The folder and its contents were successfully deleted.';
+                } else {
+                    $result['status'] = 'Error';
+                    $result['message'] = 'An error occurred while deleting the folder.';
+                }
             } else {
-                throw new \Exception("During the deletion, an error accoured: $filePath");
+                $result['status'] = 'Error';
+                $result['message'] = 'The folder could not be deleted because it is not empty.';
             }
         } else {
-            throw new \Exception("File does not exist: $filePath");
+            $result['status'] = 'Error';
+            $result['message'] = 'Invalid path.';
         }
+    
+        return $result; 
     }
+    
+    function deleteDoc(string $base64Url) : array {
+        $result = [];
+
+        $pathname = $this->getFilePathFromId($base64Url);
+        $path = FilePathDataType::findFolderPath($pathname);
+ 
+        $directoryPath = $this->basePath; 
+        $fullPath = rtrim($directoryPath, '/') . '/' .trim($pathname,'/');
+        $fixedPath = str_replace('\\', '/', $fullPath);
+    
+        if (is_file($fixedPath)) { 
+            if (unlink($fixedPath)) {
+                $result['status'] = 'Success';
+                $result['message'] = 'File deleted successfully'; 
+            } else {
+                $result['status'] = 'Error';
+                $result['message'] = 'Failed to delete file '; 
+            }
+        } else {
+            $result['status'] = 'Error';
+            $result['message'] = 'Invalid path'; 
+        }
+        
+        return []; 
+    }
+
 
     /**
-     * TODO 
-     * 
-     * @return void
+     * Lists all files and folders in the selected directory
+     * @param string $path 
+     * @return array
      */
-    protected function deleteFolder()
-    {
-
-    }
-
     protected function list(string $path) : array
     {
         $abs = $this->basePath . DIRECTORY_SEPARATOR . FilePathDataType::normalize($path, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR;
@@ -197,10 +283,16 @@ class SchemioFs
         ];
     }
 
+    /**
+     * The user clicks the button to create/save a new diagram. The file name and description are entered and Create is pressed.
+     * @param string $path
+     * @param array $data
+     * @return array
+     */
     protected function writeDoc(string $path, array $data) : array
     {
         $filename = $data['name'] . '.schemio.json';
-        $data['id'] = $this->getIdFromFilePath($path . '/' . $filename); // TODO Add path here?
+        $data['id'] = $this->getIdFromFilePath($path . '/' . $filename);
         
         $json = [
             "scheme" => $data,
@@ -214,6 +306,45 @@ class SchemioFs
         return $data;
     }
 
+    /**
+     * Rename Document
+     * @param string $path
+     * @param array $data
+     * @return array
+     */
+    protected function renameFile(string $path, string $oldname, array $data) : array
+    {
+        $oldname = ltrim(FilePathDataType::normalize($oldname), '/');
+        if (StringDataType::endsWith($path, '.schemio.json')) //file
+        {
+            $newname = $data['name'] . '.schemio.json';  
+        }
+        else //directory
+        {
+            $newname = $data['name'];
+        }
+  
+        $oldpath =  $this->basePath . DIRECTORY_SEPARATOR . $path . DIRECTORY_SEPARATOR . $oldname;
+        $oldpath = FilePathDataType::normalize($oldpath, DIRECTORY_SEPARATOR);
+        $newpath = $this->basePath . DIRECTORY_SEPARATOR . $path . DIRECTORY_SEPARATOR . $newname;
+        $newpath = FilePathDataType::normalize($newpath);
+     
+        if (rename($oldpath,$newpath)) {
+            return [  
+                "status" => 'ok'
+            ];
+        } else {
+            throw new \Exception('Failed to rename diagram');
+        }
+        
+       
+    }
+
+    /**
+     * @param $base64Url
+     * @param $data
+     * @return array
+    */
     protected function writeDocById(string $base64Url, array $data) : array
     {
         $pathname = $this->getFilePathFromId($base64Url);
@@ -221,7 +352,28 @@ class SchemioFs
         
         return $this->writeDoc($path, $data);
     }
+
+     /**
+     * Renames the Schemio file via id
+     * if you use the same function for renaming files, it renames the file but it not shows the change on the page, after manual page refresh it shows the change
+     * TODO do seperate function for each deletion type
+     * @param $base64Url
+     * @param $data
+     * @return array
+    */
+    protected function renameSchemeById(string $base64Url, array $data) : array
+    {
+        $oldname = $this->getFilePathFromId($base64Url);
+        $path = FilePathDataType::findFolderPath($oldname); 
+
+        return $this->renameFile($path, $oldname, $data);
+    }
     
+    /**
+     * Opens the selected Schemio file using its id value.
+     * @param string $base64Url 
+     * @return array
+    */
     protected function readDocById(string $base64Url) : array
     {
         $pathname = $this->getFilePathFromId($base64Url);
@@ -254,6 +406,12 @@ class SchemioFs
         return $doc;
     }
 
+    /**
+     * 
+     * @param string $path 
+     * @param string $name 
+     * @return array
+    */
     protected function readDoc(string $path, string $name): array
     {
         $filePath = str_replace('\\\\', '\\', $this->basePath . DIRECTORY_SEPARATOR . $path . DIRECTORY_SEPARATOR . $name . '.schemio.json');
@@ -263,7 +421,14 @@ class SchemioFs
         return json_decode(file_get_contents($filePath), true);
     }
 
-    protected function createDirectory(string $path, array $data): array
+    /**
+     * Creates the Directory
+     * 
+     * @param string $path
+     * @param array $data
+     * @return array
+    */
+    protected function createDirectory(array $data): array
     {
         $parent_directory = $data['path'] ?? '';
         $new_directory = $data['name'] ?? '';
