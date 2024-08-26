@@ -1,6 +1,7 @@
 <?php
 namespace axenox\Sketch\Facades\Schemio;
 
+use DateTime;
 use Exception;
 use exface\Core\DataTypes\FilePathDataType;
 use exface\Core\DataTypes\StringDataType;
@@ -8,11 +9,15 @@ use exface\Core\CommonLogic\Filemanager;
 use exface\Core\Exceptions\DataSheets\DataSheetDeleteError;
 use exface\Core\Exceptions\FileNotFoundError;
 use exface\Core\DataTypes\BinaryDataType;
+use exface\Core\DataTypes\DateTimeDataType;
 use exface\Core\Exceptions\FileNotReadableError;
+use League\OpenAPIValidation\Schema\TypeFormats\StringDate;
 use Symfony\Component\VarDumper\Exception\ThrowingCasterException;
 
 class SchemioFs
 {
+    const FILE_SUFFIX = '.schemio.json';
+
     private $basePath = '';
 
     public function __construct(string $basePath)
@@ -37,12 +42,12 @@ class SchemioFs
         switch (true) {
             // /v1/fs/list -> fsListFilesRoute
             case StringDataType::endsWith($command, '/list'):
-                $json = $this->list('');
+                $json = $this->listDir('');
                 break;
             // /v1/fs/list/* -> fsListFilesRoute
             case StringDataType::startsWith($command, '/list/'):
                 $path = StringDataType::substringAfter($command, '/list/');
-                $json = $this->list($path);
+                $json = $this->listDir($path);
                 break;
             // /v1/fs/ -> fsCreateArt
             case StringDataType::endsWith($command, '/art'):
@@ -75,7 +80,7 @@ class SchemioFs
                 break; 
             case StringDataType::endsWith($command, '/docs'):
                 switch ($method) {
-                    // /v1/fs/docs/:docId
+                    // /v1/fs/docs
                     case 'POST':                       
                         $path = $params['path'] ?? '';
                         $json = $this->writeDoc($path, $data);
@@ -83,14 +88,8 @@ class SchemioFs
                     case 'PUT':
                         $json = $this->writeDoc('', $data);
                         break;
-                    // see delete /v1/fs/docs/:schemeId
-                    case 'DELETE': //todo
-                        $filename = StringDataType::substringAfter($command, '/docs');
-                        $json = $this->deleteDoc($filename);
-                        break;
                     case 'GET':
-                        $filename = StringDataType::substringAfter($command, '/docs'); 
-                        $json = $this->readDoc('', $filename);
+                        $json = $this->listAll('*' . self::FILE_SUFFIX, $params['q'] ?? null);
                         break;
                 }
                 break;
@@ -105,7 +104,6 @@ class SchemioFs
                         break;
                     // /v1/fs/docs/:schemeId
                     case 'POST':
-
                     case 'PUT':
                         // fsSaveScheme --> calls when user clicked SAVE button
                         $json = $this->writeDocById($id, $data);
@@ -117,6 +115,12 @@ class SchemioFs
                     // fsPatchScheme 
                     case 'PATCH':
                         $json = $this->renameSchemeById($id, $data);
+                        break;
+
+                    // see delete /v1/fs/docs/:schemeId
+                    case 'DELETE': //todo
+                        $filename = StringDataType::substringAfter($command, '/docs');
+                        $json = $this->deleteDoc($filename);
                         break;
                 }
         }
@@ -220,10 +224,10 @@ class SchemioFs
      * @param string $path 
      * @return array
      */
-    protected function list(string $path) : array
+    protected function listDir(string $path, string $pattern = '*') : array
     {
         $abs = $this->basePath . DIRECTORY_SEPARATOR . FilePathDataType::normalize($path, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR;
-        $files = glob("{$abs}*");
+        $files = glob($abs . $pattern);
         $json = [];
            
         $parents = [];
@@ -254,7 +258,8 @@ class SchemioFs
             $filePath = FilePathDataType::normalize(StringDataType::substringAfter($file, $abs), '/');
             $pathname = $path . '/' . $filePath;
             $data = [
-                'path' => $pathname
+                'path' => $pathname,
+                'modifiedTime' => $this->getFileMTime($file)
             ];
             switch (true) {
                 case is_dir($file): 
@@ -264,9 +269,9 @@ class SchemioFs
                     $data['children'] = [];
                     $data['parents'] = $parents;
                     break;
-                case StringDataType::endsWith($file, '.schemio.json'): 
+                case StringDataType::endsWith($file, self::FILE_SUFFIX): 
                     $filename = FilePathDataType::findFileName($filePath, true);
-                    $docName = StringDataType::substringBefore($filename, '.schemio.json');
+                    $docName = $this->getDocnameFromFilename($filename);
                     $data['kind'] = 'schemio:doc'; 
                     $data['name'] = $docName;
                     $data['id'] = $this->getIdFromFilePath($path . '/' . $filename);
@@ -284,6 +289,82 @@ class SchemioFs
     }
 
     /**
+     * Lists all documents - e.g. for references or search
+     *
+     * @param string $filenamePattern
+     * @param string|null $searchQuery
+     * @return array
+     */
+    protected function listAll(string $filenamePattern, string $searchQuery = null) : array
+    {
+        $abs = $this->basePath . DIRECTORY_SEPARATOR;
+        $files = $this->listFiles($abs, $filenamePattern, true);
+        $json = [];
+
+        foreach ($files as $file) {
+            $pathname = FilePathDataType::normalize(StringDataType::substringAfter($file, $abs), '/');
+            $fileId = $this->getIdFromFilePath($pathname);
+            $filename = FilePathDataType::findFileName($pathname, true);
+            $docName = $this->getDocnameFromFilename($filename);
+            // If there is a search query, check if it matches the document name or its
+            // contents. Otherwise ignore this file
+            if ($searchQuery !== null) {
+                if (stripos($docName, $searchQuery) === false) {
+                    $fileContents = file_get_contents($file);
+                    if ($fileContents === false || stripos($fileContents, $searchQuery) === false) {
+                        continue;
+                    }
+                }
+            }
+            $data = [
+                'fsPath' => $pathname,
+                'id' => $fileId,
+                'link' => '/docs/' . $fileId,
+                'lowerName' => mb_strtolower($docName),
+                'name' => $docName,
+                'modifiedTime' => $this->getFileMTime($pathname)
+            ];
+            $json[] = $data;
+        }
+        return [
+            "kind" => 'page',
+            "page" => 1,
+            "results" => $json,
+            "totalPages" => 1,
+            "totalResults" => count($json)
+        ];
+    }
+
+    /**
+     * Returns an array with file/folder absolute paths from a given path
+     *
+     * @param string $path
+     * @param string $pattern
+     * @param boolean $recursive
+     * @param integer $globFlags
+     * @return string[]
+     */
+    protected function listFiles(string $path, string $pattern = '*', bool $recursive = false, int $globFlags = 0) : array
+    {
+        $path = rtrim($path, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR;
+        if ($recursive === true) {
+            // Read files
+            $files = glob($path . $pattern, $globFlags); 
+            $subdirs = glob($path . '*', GLOB_ONLYDIR|GLOB_NOSORT);
+            foreach ($subdirs as $dir) {
+                $files = array_merge(
+                    $files, 
+                    $this->listFiles($dir, $pattern, $recursive, $globFlags)
+                );
+            }
+        } else {
+            $files = glob($path . $pattern, $globFlags);
+        }
+        $files = array_filter($files, 'is_file');
+        return $files;
+    }
+
+    /**
      * The user clicks the button to create/save a new diagram. The file name and description are entered and Create is pressed.
      * @param string $path
      * @param array $data
@@ -291,7 +372,7 @@ class SchemioFs
      */
     protected function writeDoc(string $path, array $data) : array
     {
-        $filename = $data['name'] . '.schemio.json';
+        $filename = $this->getFilenameFromDocname($data['name']);
         $data['id'] = $this->getIdFromFilePath($path . '/' . $filename);
         
         $json = [
@@ -315,14 +396,7 @@ class SchemioFs
     protected function renameFile(string $path, string $oldname, array $data) : array
     {
         $oldname = ltrim(FilePathDataType::normalize($oldname), '/');
-        if (StringDataType::endsWith($path, '.schemio.json')) //file
-        {
-            $newname = $data['name'] . '.schemio.json';  
-        }
-        else //directory
-        {
-            $newname = $data['name'];
-        }
+        $newname = $this->getDocnameFromFilename($data['name']);
   
         $oldpath =  $this->basePath . DIRECTORY_SEPARATOR . $path . DIRECTORY_SEPARATOR . $oldname;
         $oldpath = FilePathDataType::normalize($oldpath, DIRECTORY_SEPARATOR);
@@ -400,7 +474,7 @@ class SchemioFs
         if (array_key_exists('scheme', $doc)) {
             $filename = FilePathDataType::findFileName($pathname, true);
             $doc['scheme']['id'] = $base64Url;
-            $doc['scheme']['name'] = StringDataType::substringBefore($filename, '.schemio.json', $filename);
+            $doc['scheme']['name'] = $this->getDocnameFromFilename($filename);
         }
         // Return the consitent document structure
         return $doc;
@@ -414,7 +488,7 @@ class SchemioFs
     */
     protected function readDoc(string $path, string $name): array
     {
-        $filePath = str_replace('\\\\', '\\', $this->basePath . DIRECTORY_SEPARATOR . $path . DIRECTORY_SEPARATOR . $name . '.schemio.json');
+        $filePath = str_replace('\\\\', '\\', $this->basePath . DIRECTORY_SEPARATOR . $path . DIRECTORY_SEPARATOR . $this->getFilenameFromDocname($name));
         if (!file_exists($filePath)) {
             throw new FileNotFoundError('File not found');
         }
@@ -490,5 +564,41 @@ class SchemioFs
     protected function getFilePathFromId(string $base64Url) : string
     {
         return BinaryDataType::convertBase64URLToText($base64Url);
+    }
+
+    /**
+     * Strips the `.schemio.json` suffix from a file name if it is there
+     *
+     * @param string $filename
+     * @return string
+     */
+    protected function getDocnameFromFilename(string $filename) : string
+    {
+        return StringDataType::substringBefore($filename, self::FILE_SUFFIX, $filename);
+    }
+
+    /**
+     * Returns the file name for a given scheme name - i.g. with the `.schemio.json` suffix
+     *
+     * @param string $docName
+     * @return string
+     */
+    protected function getFilenameFromDocname(string $docName) : string
+    {
+        return $docName . self::FILE_SUFFIX;
+    }
+
+    /**
+     * Returns ISO 8601 formatted date and time for the given file absolute path
+     *
+     * @param string $absPath
+     * @return string|null
+     */
+    protected function getFileMTime(string $absPath) : ?string
+    {
+        if (false !== $mtime = filemtime($absPath)) {
+            return (new DateTime('@' . $mtime))->format('c');
+        }
+        return null;
     }
 }
