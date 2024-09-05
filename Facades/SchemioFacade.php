@@ -166,22 +166,4 @@ class SchemioFacade extends AbstractHttpFacade
         // $headers['Content-Type'] = 'text/html';
         return $headers;
     }
-    
-    /**
-     * 
-     * {@inheritDoc}
-     * @see \exface\Core\Facades\AbstractHttpFacade\AbstractHttpFacade::getMiddleware()
-     */
-    protected function getMiddleware() : array
-    {
-        $middleware = parent::getMiddleware();
-        
-        // Add HTTP basic auth for simpler API testing. This allows to log in with
-        // username and password from API clients like PostMan.
-        $middleware[] = new AuthenticationMiddleware($this, [
-              [AuthenticationMiddleware::class, 'extractBasicHttpAuthToken']
-        ]);
-        
-        return $middleware;
-    }
 }
