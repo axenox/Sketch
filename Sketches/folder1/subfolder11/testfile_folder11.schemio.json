@@ -1,0 +1,341 @@
+{
+    "scheme": {
+        "id": "Zm9sZGVyMSUyRnN1YmZvbGRlcjExJTJGdGVzdGZpbGVfZm9sZGVyMTEuc2NoZW1pby5qc29u",
+        "name": "testfile_folder11",
+        "description": "<p>asdf<\/p>",
+        "tags": [],
+        "items": [
+            {
+                "id": "UZbbCVhpV",
+                "shapeProps": {
+                    "colWidths": [
+                        33.3,
+                        33.3
+                    ],
+                    "rowWidths": [
+                        33.3,
+                        33.3
+                    ]
+                },
+                "shape": "uml_table",
+                "area": {
+                    "x": -386,
+                    "y": -509.515625,
+                    "w": 200,
+                    "h": 100
+                },
+                "name": "Table with header",
+                "links": [],
+                "textSlots": {
+                    "c_0_0": {
+                        "text": "<p>asdf_testfile3<\/p>"
+                    },
+                    "c_0_1": {
+                        "text": "<p>2<\/p>"
+                    },
+                    "c_0_2": {
+                        "text": "<p>Überschrift<\/p>"
+                    },
+                    "c_1_1": {
+                        "text": "<p>asdf<\/p>"
+                    },
+                    "c_1_0": {
+                        "text": "<p>3<\/p>"
+                    }
+                },
+                "behavior": {
+                    "events": []
+                },
+                "tags": [],
+                "effects": []
+            },
+            {
+                "id": "C6QOvbuAXc",
+                "area": {
+                    "x": -217,
+                    "y": -494.5
+                },
+                "shape": "rect",
+                "name": "Dynamic component",
+                "links": [],
+                "cursor": "pointer",
+                "behavior": {
+                    "events": [
+                        {
+                            "id": "Zxkl0fA4kgn",
+                            "event": "clicked",
+                            "actions": [
+                                {
+                                    "id": "Z48vSOr_5OH",
+                                    "element": "#R2t4hUwDm5-",
+                                    "method": "set",
+                                    "on": true,
+                                    "args": {
+                                        "field": "opacity",
+                                        "value": 0,
+                                        "animated": false,
+                                        "animationDuration": 0.5,
+                                        "transition": "ease-out",
+                                        "inBackground": false
+                                    }
+                                },
+                                {
+                                    "id": "ewXQo0zdwj9",
+                                    "element": "#R2t4hUwDm5-",
+                                    "method": "loadComponent",
+                                    "on": true,
+                                    "args": []
+                                },
+                                {
+                                    "id": "FCx9--BXde0",
+                                    "element": "#R2t4hUwDm5-",
+                                    "method": "show",
+                                    "on": true,
+                                    "args": {
+                                        "animated": true,
+                                        "targetOpacity": 100,
+                                        "animationDuration": 0.5,
+                                        "transition": "ease-out",
+                                        "inBackground": false
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "id": "R44DzNBQHg_",
+                            "event": "mousein",
+                            "actions": [
+                                {
+                                    "id": "BoP__vZAVD8",
+                                    "element": "self",
+                                    "method": "set",
+                                    "on": true,
+                                    "args": {
+                                        "field": "selfOpacity",
+                                        "value": 80,
+                                        "animated": true,
+                                        "animationDuration": 0.5,
+                                        "transition": "ease-out",
+                                        "inBackground": false
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "id": "xT93bO3oJRy",
+                            "event": "mouseout",
+                            "actions": [
+                                {
+                                    "id": "xozlYTien5S",
+                                    "element": "self",
+                                    "method": "set",
+                                    "on": true,
+                                    "args": {
+                                        "field": "selfOpacity",
+                                        "value": 100,
+                                        "animated": true,
+                                        "animationDuration": 0.5,
+                                        "transition": "ease-out",
+                                        "inBackground": false
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                },
+                "shapeProps": {
+                    "cornerRadius": 10,
+                    "fill": {
+                        "color": "rgba(82,139,165,1)"
+                    },
+                    "strokeColor": "rgba(14,98,115,1)",
+                    "strokeSize": 0
+                },
+                "textSlots": {
+                    "body": {
+                        "text": "More",
+                        "color": "rgba(255,255,255,1)",
+                        "bold": true
+                    }
+                },
+                "childItems": [
+                    {
+                        "id": "R2t4hUwDm5-",
+                        "name": "component",
+                        "shape": "component",
+                        "area": {
+                            "x": 0,
+                            "y": 0,
+                            "w": 0,
+                            "h": 0,
+                            "r": 0,
+                            "px": 0.5,
+                            "py": 0.5,
+                            "sx": 1,
+                            "sy": 1
+                        },
+                        "visible": false,
+                        "shapeProps": {
+                            "kind": "external",
+                            "schemeId": "",
+                            "showButton": false,
+                            "strokeSize": 0,
+                            "referenceItem": null,
+                            "fill": {
+                                "type": "solid",
+                                "color": "rgba(255,255,255,1)"
+                            },
+                            "strokeColor": "#466AAA",
+                            "strokePattern": "solid",
+                            "cornerRadius": 0,
+                            "placement": "centered",
+                            "autoZoom": true,
+                            "buttonFill": {
+                                "type": "solid",
+                                "color": "rgba(14,195,255,0.15)"
+                            },
+                            "buttonStrokeColor": "rgba(24,127,191,0.9)",
+                            "buttonHoverFill": {
+                                "type": "solid",
+                                "color": "rgba(14,195,255,0.45)"
+                            },
+                            "buttonHoverStrokeColor": "rgba(24,127,191,0.9)",
+                            "buttonStrokeSize": 2,
+                            "buttonCornerRadius": 0,
+                            "buttonWidth": 180,
+                            "buttonHeight": 40,
+                            "showProgressBar": true,
+                            "progressColor1": "rgba(24,127,191,1)",
+                            "progressColor2": "rgba(140,214,219,1)",
+                            "showBackButton": true,
+                            "backButtonFill": {
+                                "type": "solid",
+                                "color": "rgba(102,102,102,1.0)"
+                            },
+                            "backButtonTextColor": "rgba(245,245,245,1.0)",
+                            "backButtonVPad": 20,
+                            "backButtonHPad": 20,
+                            "backButtonCornerRadius": 15,
+                            "backButtonScale": 1
+                        },
+                        "behavior": {
+                            "events": [
+                                {
+                                    "id": "yFdq5JgZ3jb",
+                                    "event": "Component Destroyed",
+                                    "actions": [
+                                        {
+                                            "id": "KSDpMztwIDG",
+                                            "element": "#R2t4hUwDm5-",
+                                            "method": "hide",
+                                            "on": true,
+                                            "args": {
+                                                "animated": true,
+                                                "animationDuration": 0.5,
+                                                "transition": "ease-out",
+                                                "inBackground": false
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "id": "Tn4SiLxRYDE",
+                                    "event": "Component Failed",
+                                    "actions": [
+                                        {
+                                            "id": "qP_GJSFdcL2",
+                                            "element": "#R2t4hUwDm5-",
+                                            "method": "wait",
+                                            "on": true,
+                                            "args": {
+                                                "time": 3
+                                            }
+                                        },
+                                        {
+                                            "id": "s6_elbPYiem",
+                                            "element": "#R2t4hUwDm5-",
+                                            "method": "hide",
+                                            "on": true,
+                                            "args": {
+                                                "animated": true,
+                                                "animationDuration": 0.5,
+                                                "transition": "ease-out",
+                                                "inBackground": false
+                                            }
+                                        }
+                                    ]
+                                }
+                            ],
+                            "dragging": "none",
+                            "dropTo": "",
+                            "dragPath": "",
+                            "dragPathAlign": false,
+                            "dragPathRotation": 0
+                        },
+                        "args": {
+                            "templatedId": "component",
+                            "templated": true
+                        },
+                        "locked": true,
+                        "textSlots": {
+                            "body": {
+                                "text": "",
+                                "bold": false,
+                                "color": "rgba(0,0,0,1.0)",
+                                "halign": "center",
+                                "valign": "middle",
+                                "fontSize": 14,
+                                "whiteSpace": "normal",
+                                "font": "Arial",
+                                "paddingLeft": 0,
+                                "paddingRight": 0,
+                                "paddingTop": 0,
+                                "paddingBottom": 0,
+                                "letterSpacing": 0
+                            }
+                        },
+                        "opacity": 100,
+                        "selfOpacity": 100,
+                        "tags": [],
+                        "links": [],
+                        "blendMode": "normal",
+                        "cursor": "default",
+                        "clip": false,
+                        "mount": true,
+                        "effects": [],
+                        "description": "",
+                        "interactionMode": "tooltip",
+                        "autoLayout": {
+                            "on": false,
+                            "rules": []
+                        },
+                        "tooltipBackground": "rgba(230,230,230,1.0)",
+                        "tooltipColor": "rgba(30,30,30,1.0)"
+                    }
+                ],
+                "args": {
+                    "templatedId": "root",
+                    "templated": true,
+                    "templateRef": "assets\/templates\/diagrams\/component.json",
+                    "templateArgs": {
+                        "component": "",
+                        "background": {
+                            "type": "solid",
+                            "color": "rgba(82,139,165,1)"
+                        },
+                        "strokeColor": "rgba(14,98,115,1)",
+                        "strokeSize": 0,
+                        "cornerRadius": 10,
+                        "customSize": false,
+                        "componentWidth": 400,
+                        "componentHeight": 350
+                    }
+                },
+                "tags": [],
+                "effects": []
+            }
+        ]
+    },
+    "folderPath": "folder1\/subfolder11",
+    "viewOnly": false
+}

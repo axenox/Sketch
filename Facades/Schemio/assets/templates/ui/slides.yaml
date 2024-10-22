@@ -15,6 +15,12 @@ args:
   frameFill      : {type: "advanced-color", value: { type: "solid", color: "rgba(250, 250, 250, 1)" }, name: "Frame background"}
   frameColor     : {type: "color", value: "rgba(212,212,212,1.0)", name: "Frame color"}
   frameStrokeSize: {type: "number", value: 1, min: 0, name: "Frame stroke size"}
+  useKeys:
+    type: boolean
+    value: true
+    name: Use keyboard
+    description: |
+      Use "Left", "Right" and "Space" keys for switching slides
   showAllSlides:
     type: boolean
     value: true
@@ -151,6 +157,51 @@ item:
         blur: 20
         opacity: 20
         inside: false
+  behavior:
+    events:
+      - id: prev-slide
+        event: Previous slide
+        actions:
+        - id: next-slide
+          element: '#moving-container'
+          method: sendEvent
+          args:
+            event: slide_prev
+
+      - id: next-slide
+        event: Next slide
+        actions:
+        - id: next-slide
+          element: '#moving-container'
+          method: sendEvent
+          args:
+            event: slide_next
+
+      - id: keys-activate
+        event: Enable keys
+        actions:
+        - $-foreach: {source: 'keys', it: 'key'}
+          id: {$-expr: 'key'}
+          element: {$-str: '#${key}'}
+          method: set
+          args:
+            field: shapeProps.active
+            value: true
+            animated: false
+
+      - id: keys-deactivate
+        event: Disable keys
+        actions:
+        - $-foreach: {source: 'keys', it: 'key'}
+          id: {$-expr: 'key'}
+          element: {$-str: '#${key}'}
+          method: set
+          args:
+            field: shapeProps.active
+            value: false
+            animated: false
+
+
   childItems:
 
     - id: header
@@ -200,7 +251,7 @@ item:
               - id: a1
                 element: self
                 method: set
-                on: true
+                'on': true
                 args:
                   field: clip
                   value: true
@@ -273,7 +324,7 @@ item:
                 actions:
                   - id: a1_1
                     method: script
-                    on: true
+                    'on': true
                     element: self
                     args:
                       script: setVar('currentSlide', 1)
@@ -283,7 +334,7 @@ item:
                 actions:
                   - id: a2_1
                     method: condition
-                    on: true
+                    'on': true
                     element: self
                     args:
                       expression: getVar('currentSlide', 1) < 2
@@ -292,7 +343,7 @@ item:
 
                   - id: a2_2
                     method: script
-                    on: true
+                    'on': true
                     element: self
                     args:
                       script:
@@ -304,21 +355,21 @@ item:
 
                   - id: a2_3
                     method: sendEvent
-                    on: true
+                    'on': true
                     element: '#btn-prev'
                     args:
                       event: update_state
 
                   - id: a2_4
                     method: sendEvent
-                    on: true
+                    'on': true
                     element: '#btn-next'
                     args:
                       event: update_state
 
                   - id: a2_5
                     method: script
-                    on: true
+                    'on': true
                     element: self
                     args:
                       script: setPosX(getVar('srcX') * (1 - t) + getVar('dstX') * t)
@@ -332,7 +383,7 @@ item:
                 actions:
                   - id: a3_1
                     method: condition
-                    on: true
+                    'on': true
                     element: self
                     args:
                       expression: { $-str: "getVar('currentSlide', 1) > ${numSlides}" }
@@ -341,21 +392,21 @@ item:
 
                   - id: a3_2
                     method: sendEvent
-                    on: true
+                    'on': true
                     element: '#btn-prev'
                     args:
                       event: update_state
 
                   - id: a3_3
                     method: sendEvent
-                    on: true
+                    'on': true
                     element: '#btn-next'
                     args:
                       event: update_state
 
                   - id: a3_4
                     method: script
-                    on: true
+                    'on': true
                     element: self
                     args:
                       script:
@@ -367,7 +418,7 @@ item:
 
                   - id: a3_5
                     method: script
-                    on: true
+                    'on': true
                     element: self
                     args:
                       script: setPosX(getVar('srcX') * (1 - t) + getVar('dstX') * t)
@@ -398,7 +449,7 @@ item:
             event: init
             actions:
               - id: a1_1
-                on: true
+                'on': true
                 element: self
                 method: hide
                 args:
@@ -419,7 +470,7 @@ item:
               - id: a2_2
                 element: self
                 method: hide
-                on: true
+                'on': true
                 args:
                   animated: true
                   animationDuration: 0.2
@@ -427,7 +478,7 @@ item:
               - id: a2_3
                 element: '#moving-container'
                 method: condition
-                on: true
+                'on': true
                 args:
                   expression: { $-str: "getVar('currentSlide', 1) > 1" }
                   success: pass
@@ -436,7 +487,7 @@ item:
               - id: a2_4
                 element: self
                 method: condition
-                on: true
+                'on': true
                 args:
                   expression: { $-str: "isVisible() != true" }
                   success: pass
@@ -445,7 +496,7 @@ item:
               - id: a2_5
                 element: self
                 method: show
-                on: true
+                'on': true
                 args:
                   animated: true
                   targetOpacity: { $-expr: "buttonOpacity" }
@@ -549,7 +600,7 @@ item:
             actions:
               - id: a1
                 method: condition
-                on: true
+                'on': true
                 element: '#moving-container'
                 args:
                   expression: { $-str: "getVar('currentSlide', 1) >= ${numSlides - 1}" }
@@ -559,7 +610,7 @@ item:
               - id: a2
                 element: self
                 method: hide
-                on: true
+                'on': true
                 args:
                   animated: true
                   animationDuration: 0.2
@@ -567,7 +618,7 @@ item:
               - id: a3
                 element: '#moving-container'
                 method: condition
-                on: true
+                'on': true
                 args:
                   expression: { $-str: "getVar('currentSlide', 1) < ${numSlides}" }
                   success: pass
@@ -576,7 +627,7 @@ item:
               - id: a4
                 element: self
                 method: condition
-                on: true
+                'on': true
                 args:
                   expression: { $-str: "isVisible() != true" }
                   success: pass
@@ -665,3 +716,65 @@ item:
                       field: opacity
                       value: { $-expr: "buttonOpacity" }
                       animated: true
+    - id: key-right
+      name: RightKey
+      shape: key_bind
+      area: {x: 0, y: 0, w: 60, h: 20, r: 0}
+      visible: false
+      shapeProps:
+        key: Right
+        down: true
+        up: false
+        active: true
+      behavior:
+        events:
+          - id: key-down
+            event: Key down
+            actions:
+            - id: key-next-slide
+              element: '#root'
+              method: sendEvent
+              args:
+                event: Next slide
+
+    - id: key-space
+      name: SpaceKey
+      shape: key_bind
+      area: {x: 0, y: 0, w: 60, h: 20, r: 0}
+      visible: false
+      shapeProps:
+        key: Space
+        down: true
+        up: false
+        active: true
+      behavior:
+        events:
+          - id: key-down
+            event: Key down
+            actions:
+            - id: key-next-slide
+              element: '#root'
+              method: sendEvent
+              args:
+                event: Next slide
+
+    - id: key-left
+      name: LeftKey
+      shape: key_bind
+      area: {x: 0, y: 0, w: 60, h: 20, r: 0}
+      visible: false
+      shapeProps:
+        key: Left
+        down: true
+        up: false
+        active: true
+      behavior:
+        events:
+          - id: key-down
+            event: Key down
+            actions:
+            - id: key-prev-slide
+              element: '#root'
+              method: sendEvent
+              args:
+                event: Previous slide

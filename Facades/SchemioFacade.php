@@ -1,6 +1,7 @@
 <?php
 namespace axenox\Sketch\Facades;
 
+use GuzzleHttp\Psr7\Uri;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use exface\Core\Facades\AbstractHttpFacade\AbstractHttpFacade;
@@ -25,14 +26,12 @@ class SchemioFacade extends AbstractHttpFacade
         $uri = $request->getUri();
         $path = $uri->getPath();
         $headers = $this->buildHeadersCommon();
-        $parsedUrl = parse_url($uri);
         
         // api/schemio/index.html/ -> index.html
         $pathInFacade = StringDataType::substringAfter($path, $this->getUrlRouteDefault() . '/');
         list($appVendor, $appAlias, $pathInFacade) = explode('/', $pathInFacade, 3);
         
         $baseUrl = $this->getWorkbench()->getUrl();
-        $schemioUrl = $baseUrl . $this->getUrlRouteDefault() . '/' . $appVendor . '/' . $appAlias;
         
         // Do the routing here
         switch (true) {     
@@ -40,31 +39,20 @@ class SchemioFacade extends AbstractHttpFacade
             case StringDataType::endsWith($pathInFacade, 'schemio.app.js'):
                 $filePath = $filePath = $this->getFilePath($pathInFacade);
                 $body = file_get_contents($filePath);
-                $body = str_replace([
-                        'rootPath: "/",',
-                        'assetsPath: "/assets",',
-                        '"/v1/',
-                        '`/v1/'
-                    ], [
-                        'rootPath: "' . $schemioUrl . '",',
-                        'assetsPath: "' . $schemioUrl . '/assets",',
-                        '"v1/',
-                        '`v1/'
-                    ], 
-                    $body
-                );
                 $headers['Content-Type'] = 'text/javascript';
                 $responseCode = 200;
                 break;
                 
             // e.g. assets/templates/index.json
-            case StringDataType::endsWith($pathInFacade, 'index.json'):
+            case StringDataType::endsWith($pathInFacade, 'index-server.tpl.html'):
                 $filePath = $filePath = $this->getFilePath($pathInFacade);
                 $body = file_get_contents($filePath);
+                $schemioUrl = $baseUrl . $this->getUrlRouteDefault() . '/' . $appVendor . '/' . $appAlias;
+                $routePrefix = trim((new Uri($schemioUrl))->getPath(), "/");
                 $body = str_replace([
-                        '"/',
+                        '{{ routePrefix }}'
                     ], [
-                        '"'
+                        $routePrefix
                     ], 
                     $body
                 );

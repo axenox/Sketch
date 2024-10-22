@@ -1,0 +1,2023 @@
+{
+    "id": "TkJSJTJGQmVkYXJmc2xpc3RlLnNjaGVtaW8uanNvbg",
+    "name": "Bedarfsliste",
+    "description": "<p><\/p>",
+    "tags": [],
+    "items": [
+        {
+            "id": "0gYZ_QJy6",
+            "shapeProps": {
+                "vertical": false,
+                "headerHeight": 110,
+                "colw1": 28.309729908609075,
+                "colw2": 44.04365438065666,
+                "colw3": 33.33333
+            },
+            "textSlots": {
+                "col1": {
+                    "text": "<p>SILB<\/p><p>(Fichtner)<\/p>",
+                    "bold": true
+                },
+                "col2": {
+                    "text": "<p>Material-Koordinator<\/p>",
+                    "bold": true
+                },
+                "col3": {
+                    "text": "<p>Einkauf (SAP)<\/p>",
+                    "bold": true
+                }
+            },
+            "shape": "uml_swim_lane",
+            "area": {
+                "x": -1140,
+                "y": -760,
+                "w": 1500,
+                "h": 640
+            },
+            "name": "Swim Lane (Horizontal)",
+            "links": [],
+            "behavior": {
+                "events": []
+            },
+            "tags": [],
+            "effects": [],
+            "childItems": [
+                {
+                    "id": "escojTR11",
+                    "shapeProps": {
+                        "cornerRadius": 0,
+                        "fill": {
+                            "type": "solid",
+                            "color": "rgba(240,240,240,1.0)"
+                        },
+                        "strokeColor": "rgba(30,30,30,1.0)",
+                        "strokeSize": 2,
+                        "strokePattern": "solid"
+                    },
+                    "shape": "rect",
+                    "cursor": "default",
+                    "area": {
+                        "x": 140,
+                        "y": 60,
+                        "w": 180,
+                        "h": 100,
+                        "r": 0,
+                        "px": 0.5,
+                        "py": 0.5,
+                        "sx": 1,
+                        "sy": 1
+                    },
+                    "opacity": 100,
+                    "blendMode": "normal",
+                    "name": "Rect",
+                    "description": "",
+                    "links": [],
+                    "textSlots": {
+                        "body": {
+                            "text": "<p>Bedarfsliste erfassen:<\/p><p>Material, Menge, Lieferort<\/p>",
+                            "bold": false,
+                            "color": "rgba(0,0,0,1.0)",
+                            "halign": "center",
+                            "valign": "middle",
+                            "fontSize": 14,
+                            "whiteSpace": "normal",
+                            "font": "Arial",
+                            "paddingLeft": 0,
+                            "paddingRight": 0,
+                            "paddingTop": 0,
+                            "paddingBottom": 0,
+                            "letterSpacing": 0
+                        }
+                    },
+                    "autoLayout": {
+                        "on": false,
+                        "rules": []
+                    },
+                    "behavior": {
+                        "events": [],
+                        "dragging": "none",
+                        "dropTo": "",
+                        "dragPath": "",
+                        "dragPathAlign": false,
+                        "dragPathRotation": 0
+                    },
+                    "selfOpacity": 100,
+                    "visible": true,
+                    "tags": [],
+                    "clip": false,
+                    "mount": true,
+                    "effects": [],
+                    "interactionMode": "tooltip",
+                    "tooltipBackground": "rgba(230,230,230,1.0)",
+                    "tooltipColor": "rgba(30,30,30,1.0)"
+                },
+                {
+                    "id": "UpEb-F-tc",
+                    "shapeProps": {
+                        "cornerRadius": 0,
+                        "fill": {
+                            "type": "solid",
+                            "color": "rgba(240,240,240,1.0)"
+                        },
+                        "strokeColor": "rgba(30,30,30,1.0)",
+                        "strokeSize": 2,
+                        "strokePattern": "solid"
+                    },
+                    "shape": "rect",
+                    "cursor": "default",
+                    "area": {
+                        "x": 580,
+                        "y": 60,
+                        "w": 180,
+                        "h": 100,
+                        "r": 0,
+                        "px": 0.5,
+                        "py": 0.5,
+                        "sx": 1,
+                        "sy": 1
+                    },
+                    "opacity": 100,
+                    "blendMode": "normal",
+                    "name": "Rect 2",
+                    "description": "<p>Technische Anforderungen sind jetzt final.<\/p>",
+                    "links": [],
+                    "textSlots": {
+                        "body": {
+                            "text": "<p>Bedarfsliste fertigstellen<\/p>",
+                            "bold": false,
+                            "color": "rgba(0,0,0,1.0)",
+                            "halign": "center",
+                            "valign": "middle",
+                            "fontSize": 14,
+                            "whiteSpace": "normal",
+                            "font": "Arial",
+                            "paddingLeft": 0,
+                            "paddingRight": 0,
+                            "paddingTop": 0,
+                            "paddingBottom": 0,
+                            "letterSpacing": 0
+                        }
+                    },
+                    "autoLayout": {
+                        "on": false,
+                        "rules": []
+                    },
+                    "behavior": {
+                        "events": [],
+                        "dragging": "none",
+                        "dropTo": "",
+                        "dragPath": "",
+                        "dragPathAlign": false,
+                        "dragPathRotation": 0
+                    },
+                    "selfOpacity": 100,
+                    "visible": true,
+                    "tags": [],
+                    "clip": false,
+                    "mount": true,
+                    "effects": [],
+                    "interactionMode": "tooltip",
+                    "tooltipBackground": "rgba(230,230,230,1.0)",
+                    "tooltipColor": "rgba(30,30,30,1.0)"
+                },
+                {
+                    "id": "CyzkNLVpm",
+                    "shapeProps": {
+                        "cornerRadius": 0,
+                        "fill": {
+                            "type": "solid",
+                            "color": "rgba(240,240,240,1.0)"
+                        },
+                        "strokeColor": "rgba(30,30,30,1.0)",
+                        "strokeSize": 2,
+                        "strokePattern": "solid"
+                    },
+                    "shape": "rect",
+                    "cursor": "default",
+                    "area": {
+                        "x": 580,
+                        "y": 200,
+                        "w": 180,
+                        "h": 100,
+                        "r": 0,
+                        "px": 0.5,
+                        "py": 0.5,
+                        "sx": 1,
+                        "sy": 1
+                    },
+                    "opacity": 100,
+                    "blendMode": "normal",
+                    "name": "Rect 3",
+                    "description": "<p>Hier ist eine Übersicht wichtig, welche Lieferanten freigegeben sind pro Position<\/p>",
+                    "links": [],
+                    "textSlots": {
+                        "body": {
+                            "text": "<p>Lieferanten suchen und zuordnen<\/p>",
+                            "bold": false,
+                            "color": "rgba(0,0,0,1.0)",
+                            "halign": "center",
+                            "valign": "middle",
+                            "fontSize": 14,
+                            "whiteSpace": "normal",
+                            "font": "Arial",
+                            "paddingLeft": 0,
+                            "paddingRight": 0,
+                            "paddingTop": 0,
+                            "paddingBottom": 0,
+                            "letterSpacing": 0
+                        }
+                    },
+                    "autoLayout": {
+                        "on": false,
+                        "rules": []
+                    },
+                    "behavior": {
+                        "events": [],
+                        "dragging": "none",
+                        "dropTo": "",
+                        "dragPath": "",
+                        "dragPathAlign": false,
+                        "dragPathRotation": 0
+                    },
+                    "selfOpacity": 100,
+                    "visible": true,
+                    "tags": [],
+                    "clip": false,
+                    "mount": true,
+                    "effects": [],
+                    "interactionMode": "tooltip",
+                    "tooltipBackground": "rgba(230,230,230,1.0)",
+                    "tooltipColor": "rgba(30,30,30,1.0)"
+                },
+                {
+                    "id": "jEHXgUi-6",
+                    "shapeProps": {
+                        "cornerRadius": 0,
+                        "fill": {
+                            "type": "solid",
+                            "color": "rgba(240,240,240,1.0)"
+                        },
+                        "strokeColor": "rgba(30,30,30,1.0)",
+                        "strokeSize": 2,
+                        "strokePattern": "solid"
+                    },
+                    "shape": "rect",
+                    "cursor": "default",
+                    "area": {
+                        "x": 360,
+                        "y": 60,
+                        "w": 180,
+                        "h": 100,
+                        "r": 0,
+                        "px": 0.5,
+                        "py": 0.5,
+                        "sx": 1,
+                        "sy": 1
+                    },
+                    "opacity": 100,
+                    "blendMode": "normal",
+                    "name": "Rect 4",
+                    "description": "",
+                    "links": [],
+                    "textSlots": {
+                        "body": {
+                            "text": "<p>Ggf. Wunsch-Lieferanten angeben<\/p>",
+                            "bold": false,
+                            "color": "rgba(0,0,0,1.0)",
+                            "halign": "center",
+                            "valign": "middle",
+                            "fontSize": 14,
+                            "whiteSpace": "normal",
+                            "font": "Arial",
+                            "paddingLeft": 0,
+                            "paddingRight": 0,
+                            "paddingTop": 0,
+                            "paddingBottom": 0,
+                            "letterSpacing": 0
+                        }
+                    },
+                    "autoLayout": {
+                        "on": false,
+                        "rules": []
+                    },
+                    "behavior": {
+                        "events": [],
+                        "dragging": "none",
+                        "dropTo": "",
+                        "dragPath": "",
+                        "dragPathAlign": false,
+                        "dragPathRotation": 0
+                    },
+                    "selfOpacity": 100,
+                    "visible": true,
+                    "tags": [],
+                    "clip": false,
+                    "mount": true,
+                    "effects": [],
+                    "interactionMode": "tooltip",
+                    "tooltipBackground": "rgba(230,230,230,1.0)",
+                    "tooltipColor": "rgba(30,30,30,1.0)",
+                    "locked": false
+                },
+                {
+                    "id": "2pbcA0gNm",
+                    "shapeProps": {
+                        "thick": false,
+                        "sourceCap": "empty",
+                        "destinationCap": "triangle",
+                        "smoothing": "step",
+                        "points": [
+                            {
+                                "x": 0,
+                                "y": 40,
+                                "nx": 0,
+                                "ny": -1,
+                                "id": "Xhpbx4IRx"
+                            },
+                            {
+                                "id": "txi85dUtxA",
+                                "x": 10,
+                                "y": 0,
+                                "t": "L"
+                            },
+                            {
+                                "id": "kJyt9fNf3",
+                                "x": 440,
+                                "y": 0,
+                                "t": "L"
+                            },
+                            {
+                                "x": 470.46875,
+                                "y": 40,
+                                "nx": 0,
+                                "ny": -1,
+                                "id": "qzh5wVgf5j"
+                            }
+                        ],
+                        "strokeColor": "rgba(30,30,30,1.0)",
+                        "strokeSize": 2,
+                        "strokePattern": "solid",
+                        "sourceCapSize": 20,
+                        "destinationCapSize": 20,
+                        "stepSize": 10,
+                        "fill": {
+                            "type": "solid",
+                            "color": "rgba(255,255,255,1.0)"
+                        },
+                        "thickWidth": 10,
+                        "sourceItem": "#escojTR11",
+                        "destinationItem": "#UpEb-F-tc",
+                        "sourceItemPosition": 370.15625,
+                        "destinationItemPosition": 400.46875,
+                        "sourcePin": "t",
+                        "destinationPin": ""
+                    },
+                    "shape": "connector",
+                    "cursor": "default",
+                    "area": {
+                        "x": 230,
+                        "y": 20,
+                        "w": 470.46875,
+                        "h": 40,
+                        "r": 0,
+                        "px": 0.5,
+                        "py": 0.5,
+                        "sx": 1,
+                        "sy": 1
+                    },
+                    "opacity": 100,
+                    "blendMode": "normal",
+                    "name": "Rect -> Rect 2",
+                    "description": "",
+                    "links": [],
+                    "textSlots": [],
+                    "autoLayout": {
+                        "on": false,
+                        "rules": []
+                    },
+                    "behavior": {
+                        "events": [],
+                        "dragging": "none",
+                        "dropTo": "",
+                        "dragPath": "",
+                        "dragPathAlign": false,
+                        "dragPathRotation": 0
+                    },
+                    "selfOpacity": 100,
+                    "visible": true,
+                    "tags": [],
+                    "clip": false,
+                    "mount": true,
+                    "effects": [],
+                    "interactionMode": "tooltip",
+                    "tooltipBackground": "rgba(230,230,230,1.0)",
+                    "tooltipColor": "rgba(30,30,30,1.0)"
+                },
+                {
+                    "id": "ggsRLQTy8",
+                    "shapeProps": {
+                        "cornerRadius": 0,
+                        "fill": {
+                            "type": "solid",
+                            "color": "rgba(240,240,240,1.0)"
+                        },
+                        "strokeColor": "rgba(30,30,30,1.0)",
+                        "strokeSize": 2,
+                        "strokePattern": "solid"
+                    },
+                    "shape": "rect",
+                    "cursor": "default",
+                    "area": {
+                        "x": 800,
+                        "y": 200,
+                        "w": 180,
+                        "h": 100,
+                        "r": 0,
+                        "px": 0.5,
+                        "py": 0.5,
+                        "sx": 1,
+                        "sy": 1
+                    },
+                    "opacity": 100,
+                    "blendMode": "normal",
+                    "name": "Rect 6",
+                    "description": "<p>In diesem Schritt muss schon klar sein, dass das Budget genehmigt ist.<\/p>",
+                    "links": [],
+                    "textSlots": {
+                        "body": {
+                            "text": "<p>Genehmigen oder Ablehnen<\/p>",
+                            "bold": false,
+                            "color": "rgba(0,0,0,1.0)",
+                            "halign": "center",
+                            "valign": "middle",
+                            "fontSize": 14,
+                            "whiteSpace": "normal",
+                            "font": "Arial",
+                            "paddingLeft": 0,
+                            "paddingRight": 0,
+                            "paddingTop": 0,
+                            "paddingBottom": 0,
+                            "letterSpacing": 0
+                        }
+                    },
+                    "autoLayout": {
+                        "on": false,
+                        "rules": []
+                    },
+                    "behavior": {
+                        "events": [],
+                        "dragging": "none",
+                        "dropTo": "",
+                        "dragPath": "",
+                        "dragPathAlign": false,
+                        "dragPathRotation": 0
+                    },
+                    "selfOpacity": 100,
+                    "visible": true,
+                    "tags": [],
+                    "clip": false,
+                    "mount": true,
+                    "effects": [],
+                    "interactionMode": "tooltip",
+                    "tooltipBackground": "rgba(230,230,230,1.0)",
+                    "tooltipColor": "rgba(30,30,30,1.0)",
+                    "locked": false
+                },
+                {
+                    "shape": "connector",
+                    "name": "Rect 3 -> Rect 6",
+                    "area": {
+                        "x": 760,
+                        "y": 250,
+                        "w": 40,
+                        "h": 0,
+                        "r": 0,
+                        "px": 0.5,
+                        "py": 0.5,
+                        "sx": 1,
+                        "sy": 1
+                    },
+                    "shapeProps": {
+                        "destinationCap": "triangle",
+                        "strokeColor": "rgba(30,30,30,1.0)",
+                        "strokeSize": 2,
+                        "strokePattern": "solid",
+                        "points": [
+                            {
+                                "x": 0,
+                                "y": 0,
+                                "nx": 1,
+                                "ny": 0,
+                                "id": "AJcn7_pBVe"
+                            },
+                            {
+                                "x": 40,
+                                "y": 0,
+                                "nx": -1,
+                                "ny": 0,
+                                "id": "dfEgvmPlCV"
+                            }
+                        ],
+                        "sourceCap": "empty",
+                        "sourceCapSize": 20,
+                        "destinationCapSize": 20,
+                        "smoothing": "step",
+                        "stepSize": 10,
+                        "thick": false,
+                        "fill": {
+                            "type": "solid",
+                            "color": "rgba(255,255,255,1.0)"
+                        },
+                        "thickWidth": 10,
+                        "sourceItem": "#CyzkNLVpm",
+                        "destinationItem": "#ggsRLQTy8",
+                        "sourceItemPosition": 510.15625,
+                        "destinationItemPosition": 230.15625,
+                        "sourcePin": "r",
+                        "destinationPin": "l"
+                    },
+                    "textSlots": [],
+                    "opacity": 100,
+                    "selfOpacity": 100,
+                    "visible": true,
+                    "tags": [],
+                    "links": [],
+                    "blendMode": "normal",
+                    "cursor": "default",
+                    "clip": false,
+                    "mount": true,
+                    "effects": [],
+                    "description": "",
+                    "interactionMode": "tooltip",
+                    "autoLayout": {
+                        "on": false,
+                        "rules": []
+                    },
+                    "behavior": {
+                        "events": [],
+                        "dragging": "none",
+                        "dropTo": "",
+                        "dragPath": "",
+                        "dragPathAlign": false,
+                        "dragPathRotation": 0
+                    },
+                    "tooltipBackground": "rgba(230,230,230,1.0)",
+                    "tooltipColor": "rgba(30,30,30,1.0)",
+                    "id": "mqp_CtqCi"
+                },
+                {
+                    "shape": "connector",
+                    "name": "OK",
+                    "area": {
+                        "x": 1140,
+                        "y": 250,
+                        "w": 40,
+                        "h": 0,
+                        "r": 0,
+                        "px": 0.5,
+                        "py": 0.5,
+                        "sx": 1,
+                        "sy": 1
+                    },
+                    "shapeProps": {
+                        "destinationCap": "triangle",
+                        "strokeColor": "rgba(30,30,30,1.0)",
+                        "strokeSize": 2,
+                        "strokePattern": "solid",
+                        "points": [
+                            {
+                                "x": 0,
+                                "y": 0,
+                                "nx": 1,
+                                "ny": 0,
+                                "id": "KMqBE3miFH"
+                            },
+                            {
+                                "x": 40,
+                                "y": 0,
+                                "nx": -1,
+                                "ny": 0,
+                                "id": "g4Gc1AMjZx"
+                            }
+                        ],
+                        "sourceCap": "empty",
+                        "sourceCapSize": 20,
+                        "destinationCapSize": 20,
+                        "smoothing": "step",
+                        "stepSize": 10,
+                        "thick": false,
+                        "fill": {
+                            "type": "solid",
+                            "color": "rgba(255,255,255,1.0)"
+                        },
+                        "thickWidth": 10,
+                        "sourceItem": "#bOEQ8hK0N",
+                        "destinationItem": "#a2cb9Srun",
+                        "sourceItemPosition": 0,
+                        "destinationItemPosition": 230.15625,
+                        "sourcePin": "r",
+                        "destinationPin": "l"
+                    },
+                    "textSlots": [],
+                    "opacity": 100,
+                    "selfOpacity": 100,
+                    "visible": true,
+                    "tags": [],
+                    "links": [],
+                    "blendMode": "normal",
+                    "cursor": "default",
+                    "clip": false,
+                    "mount": true,
+                    "effects": [],
+                    "description": "",
+                    "interactionMode": "tooltip",
+                    "autoLayout": {
+                        "on": false,
+                        "rules": []
+                    },
+                    "behavior": {
+                        "events": [],
+                        "dragging": "none",
+                        "dropTo": "",
+                        "dragPath": "",
+                        "dragPathAlign": false,
+                        "dragPathRotation": 0
+                    },
+                    "tooltipBackground": "rgba(230,230,230,1.0)",
+                    "tooltipColor": "rgba(30,30,30,1.0)",
+                    "id": "10t-zPeYD"
+                },
+                {
+                    "shape": "connector",
+                    "name": "Nicht OK",
+                    "area": {
+                        "x": 230,
+                        "y": 160,
+                        "w": 660,
+                        "h": 180,
+                        "r": 0,
+                        "px": 0.5,
+                        "py": 0.5,
+                        "sx": 1,
+                        "sy": 1
+                    },
+                    "shapeProps": {
+                        "destinationCap": "triangle",
+                        "strokeColor": "rgba(30,30,30,1.0)",
+                        "strokeSize": 2,
+                        "strokePattern": "solid",
+                        "points": [
+                            {
+                                "x": 660,
+                                "y": 140,
+                                "nx": 0,
+                                "ny": 1,
+                                "id": "8_-L8uN1XI"
+                            },
+                            {
+                                "id": "EggVYriXz9",
+                                "x": 250,
+                                "y": 180
+                            },
+                            {
+                                "x": 0,
+                                "y": 0,
+                                "nx": 0,
+                                "ny": 1,
+                                "id": "IBc2JYMCNY"
+                            }
+                        ],
+                        "sourceCap": "empty",
+                        "sourceCapSize": 20,
+                        "destinationCapSize": 20,
+                        "smoothing": "step",
+                        "stepSize": 10,
+                        "thick": false,
+                        "fill": {
+                            "type": "solid",
+                            "color": "rgba(255,255,255,1.0)"
+                        },
+                        "thickWidth": 10,
+                        "sourceItem": "#ggsRLQTy8",
+                        "destinationItem": "#escojTR11",
+                        "sourceItemPosition": 89.84375,
+                        "destinationItemPosition": 90.15625,
+                        "sourcePin": "b",
+                        "destinationPin": "b"
+                    },
+                    "textSlots": [],
+                    "opacity": 100,
+                    "selfOpacity": 100,
+                    "visible": true,
+                    "tags": [],
+                    "links": [],
+                    "blendMode": "normal",
+                    "cursor": "default",
+                    "clip": false,
+                    "mount": true,
+                    "effects": [],
+                    "description": "<p>Nicht OK.<\/p>",
+                    "interactionMode": "tooltip",
+                    "autoLayout": {
+                        "on": false,
+                        "rules": []
+                    },
+                    "behavior": {
+                        "events": [],
+                        "dragging": "none",
+                        "dropTo": "",
+                        "dragPath": "",
+                        "dragPathAlign": false,
+                        "dragPathRotation": 0
+                    },
+                    "tooltipBackground": "rgba(230,230,230,1.0)",
+                    "tooltipColor": "rgba(30,30,30,1.0)",
+                    "id": "LvjHOgQ8r"
+                },
+                {
+                    "id": "a2cb9Srun",
+                    "shapeProps": {
+                        "cornerRadius": 0,
+                        "fill": {
+                            "type": "solid",
+                            "color": "rgba(240,240,240,1.0)"
+                        },
+                        "strokeColor": "rgba(30,30,30,1.0)",
+                        "strokeSize": 2,
+                        "strokePattern": "solid"
+                    },
+                    "shape": "rect",
+                    "cursor": "default",
+                    "area": {
+                        "x": 1180,
+                        "y": 200,
+                        "w": 180,
+                        "h": 100,
+                        "r": 0,
+                        "px": 0.5,
+                        "py": 0.5,
+                        "sx": 1,
+                        "sy": 1
+                    },
+                    "opacity": 100,
+                    "blendMode": "normal",
+                    "name": "Rect 8",
+                    "description": "",
+                    "links": [],
+                    "textSlots": {
+                        "body": {
+                            "text": "<p>Angebot anfragen<\/p>",
+                            "bold": false,
+                            "color": "rgba(0,0,0,1.0)",
+                            "halign": "center",
+                            "valign": "middle",
+                            "fontSize": 14,
+                            "whiteSpace": "normal",
+                            "font": "Arial",
+                            "paddingLeft": 0,
+                            "paddingRight": 0,
+                            "paddingTop": 0,
+                            "paddingBottom": 0,
+                            "letterSpacing": 0
+                        }
+                    },
+                    "autoLayout": {
+                        "on": false,
+                        "rules": []
+                    },
+                    "behavior": {
+                        "events": [],
+                        "dragging": "none",
+                        "dropTo": "",
+                        "dragPath": "",
+                        "dragPathAlign": false,
+                        "dragPathRotation": 0
+                    },
+                    "selfOpacity": 100,
+                    "visible": true,
+                    "tags": [],
+                    "clip": false,
+                    "mount": true,
+                    "effects": [],
+                    "interactionMode": "tooltip",
+                    "tooltipBackground": "rgba(230,230,230,1.0)",
+                    "tooltipColor": "rgba(30,30,30,1.0)",
+                    "locked": false
+                },
+                {
+                    "id": "aIFMb69Cz",
+                    "shapeProps": {
+                        "thick": false,
+                        "sourceCap": "empty",
+                        "destinationCap": "triangle",
+                        "points": [
+                            {
+                                "x": 0,
+                                "y": 0,
+                                "nx": 0,
+                                "ny": 1,
+                                "id": "CJEP6mKeL"
+                            },
+                            {
+                                "x": 220,
+                                "y": 90,
+                                "nx": -1,
+                                "ny": 0,
+                                "id": "sN5o_TdQ70"
+                            }
+                        ],
+                        "strokeColor": "rgba(30,30,30,1.0)",
+                        "strokeSize": 2,
+                        "strokePattern": "solid",
+                        "sourceCapSize": 20,
+                        "destinationCapSize": 20,
+                        "smoothing": "step",
+                        "stepSize": 10,
+                        "fill": {
+                            "type": "solid",
+                            "color": "rgba(255,255,255,1.0)"
+                        },
+                        "thickWidth": 10,
+                        "sourceItem": "#bOEQ8hK0N",
+                        "destinationItem": "#jeUVec_4U",
+                        "sourceItemPosition": 0,
+                        "destinationItemPosition": 230.15625,
+                        "sourcePin": "b",
+                        "destinationPin": "l"
+                    },
+                    "shape": "connector",
+                    "cursor": "default",
+                    "area": {
+                        "x": 1080,
+                        "y": 300,
+                        "w": 220,
+                        "h": 90,
+                        "r": 0,
+                        "px": 0.5,
+                        "py": 0.5,
+                        "sx": 1,
+                        "sy": 1
+                    },
+                    "opacity": 100,
+                    "blendMode": "normal",
+                    "name": "Rect 6 -> Rect 9",
+                    "description": "",
+                    "links": [],
+                    "textSlots": [],
+                    "autoLayout": {
+                        "on": false,
+                        "rules": []
+                    },
+                    "behavior": {
+                        "events": [],
+                        "dragging": "none",
+                        "dropTo": "",
+                        "dragPath": "",
+                        "dragPathAlign": false,
+                        "dragPathRotation": 0
+                    },
+                    "selfOpacity": 100,
+                    "visible": true,
+                    "tags": [],
+                    "clip": false,
+                    "mount": true,
+                    "effects": [],
+                    "interactionMode": "tooltip",
+                    "tooltipBackground": "rgba(230,230,230,1.0)",
+                    "tooltipColor": "rgba(30,30,30,1.0)"
+                },
+                {
+                    "id": "jeUVec_4U",
+                    "textSlots": {
+                        "body": {
+                            "text": "<p>Bestellen<\/p>",
+                            "valign": "middle",
+                            "halign": "center",
+                            "paddingLeft": 0,
+                            "paddingRight": 0,
+                            "paddingTop": 0,
+                            "paddingBottom": 0,
+                            "bold": false,
+                            "color": "rgba(0,0,0,1.0)",
+                            "fontSize": 14,
+                            "whiteSpace": "normal",
+                            "font": "Arial",
+                            "letterSpacing": 0
+                        },
+                        "button": {
+                            "text": "<p>Prozess öffnen<\/p>",
+                            "paddingLeft": 0,
+                            "paddingRight": 0,
+                            "paddingTop": 0,
+                            "paddingBottom": 0,
+                            "bold": false,
+                            "color": "rgba(0,0,0,1.0)",
+                            "halign": "center",
+                            "valign": "middle",
+                            "fontSize": 14,
+                            "whiteSpace": "normal",
+                            "font": "Arial",
+                            "letterSpacing": 0
+                        }
+                    },
+                    "shape": "component",
+                    "cursor": "default",
+                    "area": {
+                        "x": 1300,
+                        "y": 340,
+                        "w": 180,
+                        "h": 100,
+                        "r": 0,
+                        "px": 0.5,
+                        "sx": 1,
+                        "sy": 1,
+                        "py": 0.5
+                    },
+                    "opacity": 100,
+                    "blendMode": "normal",
+                    "name": "Bestellen",
+                    "description": "",
+                    "links": [],
+                    "autoLayout": {
+                        "on": false,
+                        "rules": []
+                    },
+                    "behavior": {
+                        "events": [],
+                        "dragging": "none",
+                        "dropTo": "",
+                        "dragPath": "",
+                        "dragPathAlign": false,
+                        "dragPathRotation": 0
+                    },
+                    "shapeProps": {
+                        "kind": "external",
+                        "schemeId": "TkJSJTJGQmVzdGVsbHVuZy5zY2hlbWlvLmpzb24",
+                        "fill": {
+                            "type": "solid",
+                            "color": "rgba(255,255,255,1)"
+                        },
+                        "strokeColor": "#466AAA",
+                        "strokeSize": 2,
+                        "strokePattern": "solid",
+                        "cornerRadius": 0,
+                        "placement": "centered",
+                        "autoZoom": true,
+                        "showButton": true,
+                        "buttonFill": {
+                            "type": "solid",
+                            "color": "rgba(14,195,255,0.15)"
+                        },
+                        "buttonStrokeColor": "rgba(24,127,191,0.9)",
+                        "buttonHoverFill": {
+                            "type": "solid",
+                            "color": "rgba(14,195,255,0.45)"
+                        },
+                        "buttonHoverStrokeColor": "rgba(24,127,191,0.9)",
+                        "buttonStrokeSize": 2,
+                        "buttonCornerRadius": 0,
+                        "buttonWidth": 180,
+                        "buttonHeight": 40,
+                        "showProgressBar": true,
+                        "progressColor1": "rgba(24,127,191,1)",
+                        "progressColor2": "rgba(140,214,219,1)",
+                        "showBackButton": true,
+                        "backButtonFill": {
+                            "type": "solid",
+                            "color": "rgba(102,102,102,1.0)"
+                        },
+                        "backButtonTextColor": "rgba(245,245,245,1.0)",
+                        "backButtonVPad": 20,
+                        "backButtonHPad": 20,
+                        "backButtonCornerRadius": 15,
+                        "backButtonScale": 1,
+                        "referenceItem": null
+                    },
+                    "selfOpacity": 100,
+                    "visible": true,
+                    "tags": [
+                        "Bestellung"
+                    ],
+                    "clip": false,
+                    "mount": true,
+                    "effects": [],
+                    "interactionMode": "tooltip",
+                    "tooltipBackground": "rgba(230,230,230,1.0)",
+                    "tooltipColor": "rgba(30,30,30,1.0)"
+                },
+                {
+                    "id": "bOEQ8hK0N",
+                    "shape": "basic_diamond",
+                    "cursor": "default",
+                    "area": {
+                        "x": 1020,
+                        "y": 200,
+                        "w": 120,
+                        "h": 100,
+                        "r": 0,
+                        "px": 0.5,
+                        "py": 0.5,
+                        "sx": 1,
+                        "sy": 1
+                    },
+                    "opacity": 100,
+                    "blendMode": "normal",
+                    "name": "Diamond",
+                    "description": "",
+                    "links": [],
+                    "textSlots": {
+                        "body": {
+                            "text": "<p>Angebot notwendig?<\/p>",
+                            "bold": false,
+                            "color": "rgba(0,0,0,1.0)",
+                            "halign": "center",
+                            "valign": "middle",
+                            "fontSize": 14,
+                            "whiteSpace": "normal",
+                            "font": "Arial",
+                            "paddingLeft": 0,
+                            "paddingRight": 0,
+                            "paddingTop": 0,
+                            "paddingBottom": 0,
+                            "letterSpacing": 0
+                        }
+                    },
+                    "autoLayout": {
+                        "on": false,
+                        "rules": []
+                    },
+                    "behavior": {
+                        "events": [],
+                        "dragging": "none",
+                        "dropTo": "",
+                        "dragPath": "",
+                        "dragPathAlign": false,
+                        "dragPathRotation": 0
+                    },
+                    "shapeProps": {
+                        "fill": {
+                            "type": "solid",
+                            "color": "rgba(240,240,240,1.0)"
+                        },
+                        "strokeColor": "rgba(30,30,30,1.0)",
+                        "strokeSize": 2,
+                        "strokePattern": "solid"
+                    },
+                    "selfOpacity": 100,
+                    "visible": true,
+                    "tags": [],
+                    "clip": false,
+                    "mount": true,
+                    "effects": [],
+                    "interactionMode": "tooltip",
+                    "tooltipBackground": "rgba(230,230,230,1.0)",
+                    "tooltipColor": "rgba(30,30,30,1.0)"
+                },
+                {
+                    "shape": "connector",
+                    "name": "Rect 6 -> Diamond",
+                    "area": {
+                        "x": 980,
+                        "y": 250,
+                        "w": 40,
+                        "h": 0,
+                        "r": 0,
+                        "px": 0.5,
+                        "py": 0.5,
+                        "sx": 1,
+                        "sy": 1
+                    },
+                    "shapeProps": {
+                        "destinationCap": "triangle",
+                        "strokeColor": "rgba(30,30,30,1.0)",
+                        "strokeSize": 2,
+                        "strokePattern": "solid",
+                        "points": [
+                            {
+                                "x": 0,
+                                "y": 0,
+                                "nx": 1,
+                                "ny": 0,
+                                "id": "reaUv46nc"
+                            },
+                            {
+                                "x": 40,
+                                "y": 0,
+                                "nx": -1,
+                                "ny": 0,
+                                "id": "AyeCe-9P2V"
+                            }
+                        ],
+                        "sourceCap": "empty",
+                        "sourceCapSize": 20,
+                        "destinationCapSize": 20,
+                        "smoothing": "step",
+                        "stepSize": 10,
+                        "thick": false,
+                        "fill": {
+                            "type": "solid",
+                            "color": "rgba(255,255,255,1.0)"
+                        },
+                        "thickWidth": 10,
+                        "sourceItem": "#ggsRLQTy8",
+                        "destinationItem": "#bOEQ8hK0N",
+                        "sourceItemPosition": 0,
+                        "destinationItemPosition": 0,
+                        "sourcePin": "r",
+                        "destinationPin": "l"
+                    },
+                    "textSlots": [],
+                    "opacity": 100,
+                    "selfOpacity": 100,
+                    "visible": true,
+                    "tags": [],
+                    "links": [],
+                    "blendMode": "normal",
+                    "cursor": "default",
+                    "clip": false,
+                    "mount": true,
+                    "effects": [],
+                    "description": "",
+                    "interactionMode": "tooltip",
+                    "autoLayout": {
+                        "on": false,
+                        "rules": []
+                    },
+                    "behavior": {
+                        "events": [],
+                        "dragging": "none",
+                        "dropTo": "",
+                        "dragPath": "",
+                        "dragPathAlign": false,
+                        "dragPathRotation": 0
+                    },
+                    "tooltipBackground": "rgba(230,230,230,1.0)",
+                    "tooltipColor": "rgba(30,30,30,1.0)",
+                    "id": "GLVzhIbbv"
+                }
+            ]
+        },
+        {
+            "id": "pMeKO0TFh",
+            "shapeProps": {
+                "destinationCap": "triangle",
+                "points": [
+                    {
+                        "x": 0,
+                        "y": 0,
+                        "nx": 1,
+                        "ny": 0,
+                        "id": "Q0LxOsAL_T"
+                    },
+                    {
+                        "x": 40,
+                        "y": 0,
+                        "nx": -1,
+                        "ny": 0,
+                        "id": "jU3Tl1hLGT"
+                    }
+                ],
+                "sourceItem": "#escojTR11",
+                "destinationItem": "#jEHXgUi-6",
+                "sourcePin": "r",
+                "destinationPin": "l",
+                "sourceItemPosition": 510.15625,
+                "destinationItemPosition": 230.15625
+            },
+            "shape": "connector",
+            "area": {
+                "x": -820,
+                "y": -650,
+                "w": 40
+            },
+            "name": "Rect -> Rect 4",
+            "links": [],
+            "behavior": {
+                "events": []
+            },
+            "tags": [],
+            "effects": []
+        },
+        {
+            "id": "J-BICKwPaF",
+            "shapeProps": {
+                "destinationCap": "triangle",
+                "points": [
+                    {
+                        "x": 0,
+                        "y": 0,
+                        "nx": 1,
+                        "ny": 0,
+                        "id": "v-zDmUETlA"
+                    },
+                    {
+                        "x": 40,
+                        "y": 0,
+                        "nx": -1,
+                        "ny": 0,
+                        "id": "Olg8ESzOQY"
+                    }
+                ],
+                "sourceItem": "#jEHXgUi-6",
+                "destinationItem": "#UpEb-F-tc",
+                "sourcePin": "r",
+                "destinationPin": "l",
+                "sourceItemPosition": 510.15625,
+                "destinationItemPosition": 230.15625
+            },
+            "shape": "connector",
+            "area": {
+                "x": -600,
+                "y": -650,
+                "w": 40
+            },
+            "name": "Rect 4 -> Rect 2",
+            "links": [],
+            "behavior": {
+                "events": []
+            },
+            "tags": [],
+            "effects": []
+        },
+        {
+            "id": "vWtzlObg5",
+            "shapeProps": {
+                "destinationCap": "triangle",
+                "points": [
+                    {
+                        "x": 0,
+                        "y": 0,
+                        "nx": 0,
+                        "ny": 1,
+                        "id": "Otbl1yWTzM"
+                    },
+                    {
+                        "x": 0,
+                        "y": 40,
+                        "nx": 0,
+                        "ny": -1,
+                        "id": "L8V1dGXw7C"
+                    }
+                ],
+                "sourceItem": "#UpEb-F-tc",
+                "destinationItem": "#CyzkNLVpm",
+                "sourcePin": "b",
+                "destinationPin": "t",
+                "sourceItemPosition": 90.15625,
+                "destinationItemPosition": 370.15625
+            },
+            "shape": "connector",
+            "area": {
+                "x": -470,
+                "y": -600,
+                "h": 40
+            },
+            "name": "Rect 2 -> Rect 3",
+            "links": [],
+            "behavior": {
+                "events": []
+            },
+            "tags": [],
+            "effects": []
+        },
+        {
+            "id": "xElQG8xda",
+            "shapeProps": {
+                "columns": 4,
+                "vertical": false,
+                "headerHeight": 110,
+                "colw1": 24.9999975,
+                "colw2": 24.9999975,
+                "colw3": 25
+            },
+            "textSlots": {
+                "col1": {
+                    "text": "<p>Bedarfsliste<\/p>",
+                    "bold": true
+                },
+                "col2": {
+                    "text": "<p>Anfrage<\/p>",
+                    "bold": true
+                },
+                "col3": {
+                    "text": "<p>Auftrag<\/p>",
+                    "bold": true
+                },
+                "col4": {
+                    "text": "<p>Bedarfslisten-Position<\/p>",
+                    "bold": true
+                }
+            },
+            "shape": "uml_swim_lane",
+            "area": {
+                "x": -1140,
+                "y": -80,
+                "w": 1500,
+                "h": 240
+            },
+            "name": "Swim Lane (Horizontal) 2",
+            "links": [],
+            "behavior": {
+                "events": []
+            },
+            "tags": [],
+            "effects": [],
+            "childItems": [
+                {
+                    "id": "Ye9XBzAN_",
+                    "shape": "uml_receive_signal",
+                    "cursor": "default",
+                    "area": {
+                        "x": 140,
+                        "y": 0,
+                        "w": 440,
+                        "h": 60,
+                        "r": 0,
+                        "px": 0.5,
+                        "sx": 1,
+                        "sy": 1,
+                        "py": 0.5
+                    },
+                    "opacity": 100,
+                    "blendMode": "normal",
+                    "name": "Receive Signal",
+                    "description": "",
+                    "links": [],
+                    "textSlots": {
+                        "body": {
+                            "text": "<p>In Arbeit oder Abgelehnt<\/p>",
+                            "bold": false,
+                            "color": "rgba(0,0,0,1.0)",
+                            "halign": "center",
+                            "valign": "middle",
+                            "fontSize": 14,
+                            "whiteSpace": "normal",
+                            "font": "Arial",
+                            "paddingLeft": 0,
+                            "paddingRight": 0,
+                            "paddingTop": 0,
+                            "paddingBottom": 0,
+                            "letterSpacing": 0
+                        }
+                    },
+                    "autoLayout": {
+                        "on": false,
+                        "rules": []
+                    },
+                    "behavior": {
+                        "events": [],
+                        "dragging": "none",
+                        "dropTo": "",
+                        "dragPath": "",
+                        "dragPathAlign": false,
+                        "dragPathRotation": 0
+                    },
+                    "shapeProps": {
+                        "fill": {
+                            "type": "solid",
+                            "color": "rgba(227, 191, 191, 1)"
+                        },
+                        "strokeColor": "rgba(30,30,30,1.0)",
+                        "strokeSize": 2,
+                        "strokePattern": "solid"
+                    },
+                    "selfOpacity": 100,
+                    "visible": true,
+                    "tags": [],
+                    "clip": false,
+                    "mount": true,
+                    "effects": [],
+                    "interactionMode": "tooltip",
+                    "tooltipBackground": "rgba(230,230,230,1.0)",
+                    "tooltipColor": "rgba(30,30,30,1.0)"
+                },
+                {
+                    "id": "DsqJG2NeF",
+                    "shapeProps": {
+                        "cornerRadius": 0,
+                        "fill": {
+                            "type": "solid",
+                            "color": "rgba(227, 191, 191, 1)"
+                        },
+                        "strokeColor": "rgba(30,30,30,1.0)",
+                        "strokeSize": 2,
+                        "strokePattern": "solid"
+                    },
+                    "shape": "rect",
+                    "cursor": "default",
+                    "area": {
+                        "x": 580,
+                        "y": 0,
+                        "w": 200,
+                        "h": 60,
+                        "r": 0,
+                        "px": 0.5,
+                        "py": 0.5,
+                        "sx": 1,
+                        "sy": 1
+                    },
+                    "opacity": 100,
+                    "blendMode": "normal",
+                    "name": "Rect 9",
+                    "description": "",
+                    "links": [],
+                    "textSlots": {
+                        "body": {
+                            "text": "<p>Fertig<\/p>",
+                            "bold": false,
+                            "color": "rgba(0,0,0,1.0)",
+                            "halign": "center",
+                            "valign": "middle",
+                            "fontSize": 14,
+                            "whiteSpace": "normal",
+                            "font": "Arial",
+                            "paddingLeft": 0,
+                            "paddingRight": 0,
+                            "paddingTop": 0,
+                            "paddingBottom": 0,
+                            "letterSpacing": 0
+                        }
+                    },
+                    "autoLayout": {
+                        "on": false,
+                        "rules": []
+                    },
+                    "behavior": {
+                        "events": [],
+                        "dragging": "none",
+                        "dropTo": "",
+                        "dragPath": "",
+                        "dragPathAlign": false,
+                        "dragPathRotation": 0
+                    },
+                    "selfOpacity": 100,
+                    "visible": true,
+                    "tags": [],
+                    "clip": false,
+                    "mount": true,
+                    "effects": [],
+                    "interactionMode": "tooltip",
+                    "tooltipBackground": "rgba(230,230,230,1.0)",
+                    "tooltipColor": "rgba(30,30,30,1.0)"
+                },
+                {
+                    "id": "Nx6iXAs3Z",
+                    "shapeProps": {
+                        "cornerRadius": 0,
+                        "fill": {
+                            "type": "solid",
+                            "color": "rgba(227, 191, 191, 1)"
+                        },
+                        "strokeColor": "rgba(30,30,30,1.0)",
+                        "strokeSize": 2,
+                        "strokePattern": "solid"
+                    },
+                    "shape": "rect",
+                    "cursor": "default",
+                    "area": {
+                        "x": 780,
+                        "y": 0,
+                        "w": 720,
+                        "h": 60,
+                        "r": 0,
+                        "px": 0.5,
+                        "py": 0.5,
+                        "sx": 1,
+                        "sy": 1
+                    },
+                    "opacity": 100,
+                    "blendMode": "normal",
+                    "name": "Rect 10",
+                    "description": "",
+                    "links": [],
+                    "textSlots": {
+                        "body": {
+                            "text": "<p>Genehmigt<\/p>",
+                            "bold": false,
+                            "color": "rgba(0,0,0,1.0)",
+                            "halign": "center",
+                            "valign": "middle",
+                            "fontSize": 14,
+                            "whiteSpace": "normal",
+                            "font": "Arial",
+                            "paddingLeft": 0,
+                            "paddingRight": 0,
+                            "paddingTop": 0,
+                            "paddingBottom": 0,
+                            "letterSpacing": 0
+                        }
+                    },
+                    "autoLayout": {
+                        "on": false,
+                        "rules": []
+                    },
+                    "behavior": {
+                        "events": [],
+                        "dragging": "none",
+                        "dropTo": "",
+                        "dragPath": "",
+                        "dragPathAlign": false,
+                        "dragPathRotation": 0
+                    },
+                    "selfOpacity": 100,
+                    "visible": true,
+                    "tags": [],
+                    "clip": false,
+                    "mount": true,
+                    "effects": [],
+                    "interactionMode": "tooltip",
+                    "tooltipBackground": "rgba(230,230,230,1.0)",
+                    "tooltipColor": "rgba(30,30,30,1.0)",
+                    "locked": false
+                },
+                {
+                    "id": "sQ2hI67Sg",
+                    "shape": "uml_receive_signal",
+                    "cursor": "default",
+                    "area": {
+                        "x": 1180,
+                        "y": 60,
+                        "w": 320,
+                        "h": 60,
+                        "r": 0,
+                        "px": 0.5,
+                        "sx": 1,
+                        "sy": 1,
+                        "py": 0.5
+                    },
+                    "opacity": 100,
+                    "blendMode": "normal",
+                    "name": "Receive Signal 2",
+                    "description": "",
+                    "links": [],
+                    "textSlots": {
+                        "body": {
+                            "text": "<p>In Arbeit<\/p>",
+                            "bold": false,
+                            "color": "rgba(0,0,0,1.0)",
+                            "halign": "center",
+                            "valign": "middle",
+                            "fontSize": 14,
+                            "whiteSpace": "normal",
+                            "font": "Arial",
+                            "paddingLeft": 0,
+                            "paddingRight": 0,
+                            "paddingTop": 0,
+                            "paddingBottom": 0,
+                            "letterSpacing": 0
+                        }
+                    },
+                    "autoLayout": {
+                        "on": false,
+                        "rules": []
+                    },
+                    "behavior": {
+                        "events": [],
+                        "dragging": "none",
+                        "dropTo": "",
+                        "dragPath": "",
+                        "dragPathAlign": false,
+                        "dragPathRotation": 0
+                    },
+                    "shapeProps": {
+                        "fill": {
+                            "type": "solid",
+                            "color": "rgba(227, 191, 191, 1)"
+                        },
+                        "strokeColor": "rgba(30,30,30,1.0)",
+                        "strokeSize": 2,
+                        "strokePattern": "solid"
+                    },
+                    "selfOpacity": 100,
+                    "visible": true,
+                    "tags": [],
+                    "clip": false,
+                    "mount": true,
+                    "effects": [],
+                    "interactionMode": "tooltip",
+                    "tooltipBackground": "rgba(230,230,230,1.0)",
+                    "tooltipColor": "rgba(30,30,30,1.0)",
+                    "locked": false
+                },
+                {
+                    "id": "yESJxTaXK",
+                    "shape": "uml_receive_signal",
+                    "cursor": "default",
+                    "area": {
+                        "x": 1300,
+                        "y": 120,
+                        "w": 200,
+                        "h": 60,
+                        "r": 0,
+                        "px": 0.5,
+                        "sx": 1,
+                        "sy": 1,
+                        "py": 0.5
+                    },
+                    "opacity": 100,
+                    "blendMode": "normal",
+                    "name": "Receive Signal 3",
+                    "description": "",
+                    "links": [],
+                    "textSlots": {
+                        "body": {
+                            "text": "<p>In Arbeit<\/p>",
+                            "bold": false,
+                            "color": "rgba(0,0,0,1.0)",
+                            "halign": "center",
+                            "valign": "middle",
+                            "fontSize": 14,
+                            "whiteSpace": "normal",
+                            "font": "Arial",
+                            "paddingLeft": 0,
+                            "paddingRight": 0,
+                            "paddingTop": 0,
+                            "paddingBottom": 0,
+                            "letterSpacing": 0
+                        }
+                    },
+                    "autoLayout": {
+                        "on": false,
+                        "rules": []
+                    },
+                    "behavior": {
+                        "events": [],
+                        "dragging": "none",
+                        "dropTo": "",
+                        "dragPath": "",
+                        "dragPathAlign": false,
+                        "dragPathRotation": 0
+                    },
+                    "shapeProps": {
+                        "fill": {
+                            "type": "solid",
+                            "color": "rgba(227, 191, 191, 1)"
+                        },
+                        "strokeColor": "rgba(30,30,30,1.0)",
+                        "strokeSize": 2,
+                        "strokePattern": "solid"
+                    },
+                    "selfOpacity": 100,
+                    "visible": true,
+                    "tags": [],
+                    "clip": false,
+                    "mount": true,
+                    "effects": [],
+                    "interactionMode": "tooltip",
+                    "tooltipBackground": "rgba(230,230,230,1.0)",
+                    "tooltipColor": "rgba(30,30,30,1.0)",
+                    "locked": false
+                },
+                {
+                    "id": "8BnjuZ3aW",
+                    "shape": "uml_receive_signal",
+                    "cursor": "default",
+                    "area": {
+                        "x": 140,
+                        "y": 180,
+                        "w": 440,
+                        "h": 60,
+                        "r": 0,
+                        "px": 0.5,
+                        "sx": 1,
+                        "sy": 1,
+                        "py": 0.5
+                    },
+                    "opacity": 100,
+                    "blendMode": "normal",
+                    "name": "Receive Signal 4",
+                    "description": "",
+                    "links": [],
+                    "textSlots": {
+                        "body": {
+                            "text": "<p>In Arbeit oder Abgelehnt<\/p>",
+                            "bold": false,
+                            "color": "rgba(0,0,0,1.0)",
+                            "halign": "center",
+                            "valign": "middle",
+                            "fontSize": 14,
+                            "whiteSpace": "normal",
+                            "font": "Arial",
+                            "paddingLeft": 0,
+                            "paddingRight": 0,
+                            "paddingTop": 0,
+                            "paddingBottom": 0,
+                            "letterSpacing": 0
+                        }
+                    },
+                    "autoLayout": {
+                        "on": false,
+                        "rules": []
+                    },
+                    "behavior": {
+                        "events": [],
+                        "dragging": "none",
+                        "dropTo": "",
+                        "dragPath": "",
+                        "dragPathAlign": false,
+                        "dragPathRotation": 0
+                    },
+                    "shapeProps": {
+                        "fill": {
+                            "type": "solid",
+                            "color": "rgba(227, 191, 191, 1)"
+                        },
+                        "strokeColor": "rgba(30,30,30,1.0)",
+                        "strokeSize": 2,
+                        "strokePattern": "solid"
+                    },
+                    "selfOpacity": 100,
+                    "visible": true,
+                    "tags": [],
+                    "clip": false,
+                    "mount": true,
+                    "effects": [],
+                    "interactionMode": "tooltip",
+                    "tooltipBackground": "rgba(230,230,230,1.0)",
+                    "tooltipColor": "rgba(30,30,30,1.0)",
+                    "locked": false
+                },
+                {
+                    "id": "hacW66WAVS",
+                    "shapeProps": {
+                        "cornerRadius": 0,
+                        "fill": {
+                            "type": "solid",
+                            "color": "rgba(227, 191, 191, 1)"
+                        },
+                        "strokeColor": "rgba(30,30,30,1.0)",
+                        "strokeSize": 2,
+                        "strokePattern": "solid"
+                    },
+                    "shape": "rect",
+                    "cursor": "default",
+                    "area": {
+                        "x": 580,
+                        "y": 180,
+                        "w": 200,
+                        "h": 60,
+                        "r": 0,
+                        "px": 0.5,
+                        "py": 0.5,
+                        "sx": 1,
+                        "sy": 1
+                    },
+                    "opacity": 100,
+                    "blendMode": "normal",
+                    "name": "Rect 11",
+                    "description": "",
+                    "links": [],
+                    "textSlots": {
+                        "body": {
+                            "text": "<p>Fertig<\/p>",
+                            "bold": false,
+                            "color": "rgba(0,0,0,1.0)",
+                            "halign": "center",
+                            "valign": "middle",
+                            "fontSize": 14,
+                            "whiteSpace": "normal",
+                            "font": "Arial",
+                            "paddingLeft": 0,
+                            "paddingRight": 0,
+                            "paddingTop": 0,
+                            "paddingBottom": 0,
+                            "letterSpacing": 0
+                        }
+                    },
+                    "autoLayout": {
+                        "on": false,
+                        "rules": []
+                    },
+                    "behavior": {
+                        "events": [],
+                        "dragging": "none",
+                        "dropTo": "",
+                        "dragPath": "",
+                        "dragPathAlign": false,
+                        "dragPathRotation": 0
+                    },
+                    "selfOpacity": 100,
+                    "visible": true,
+                    "tags": [],
+                    "clip": false,
+                    "mount": true,
+                    "effects": [],
+                    "interactionMode": "tooltip",
+                    "tooltipBackground": "rgba(230,230,230,1.0)",
+                    "tooltipColor": "rgba(30,30,30,1.0)",
+                    "locked": false
+                },
+                {
+                    "id": "Zr2xDvfZo9",
+                    "shapeProps": {
+                        "cornerRadius": 0,
+                        "fill": {
+                            "type": "solid",
+                            "color": "rgba(227, 191, 191, 1)"
+                        },
+                        "strokeColor": "rgba(30,30,30,1.0)",
+                        "strokeSize": 2,
+                        "strokePattern": "solid"
+                    },
+                    "shape": "rect",
+                    "cursor": "default",
+                    "area": {
+                        "x": 780,
+                        "y": 180,
+                        "w": 400,
+                        "h": 60,
+                        "r": 0,
+                        "px": 0.5,
+                        "py": 0.5,
+                        "sx": 1,
+                        "sy": 1
+                    },
+                    "opacity": 100,
+                    "blendMode": "normal",
+                    "name": "Rect 11",
+                    "description": "",
+                    "links": [],
+                    "textSlots": {
+                        "body": {
+                            "text": "<p>Genehmigt<\/p>",
+                            "bold": false,
+                            "color": "rgba(0,0,0,1.0)",
+                            "halign": "center",
+                            "valign": "middle",
+                            "fontSize": 14,
+                            "whiteSpace": "normal",
+                            "font": "Arial",
+                            "paddingLeft": 0,
+                            "paddingRight": 0,
+                            "paddingTop": 0,
+                            "paddingBottom": 0,
+                            "letterSpacing": 0
+                        }
+                    },
+                    "autoLayout": {
+                        "on": false,
+                        "rules": []
+                    },
+                    "behavior": {
+                        "events": [],
+                        "dragging": "none",
+                        "dropTo": "",
+                        "dragPath": "",
+                        "dragPathAlign": false,
+                        "dragPathRotation": 0
+                    },
+                    "selfOpacity": 100,
+                    "visible": true,
+                    "tags": [],
+                    "clip": false,
+                    "mount": true,
+                    "effects": [],
+                    "interactionMode": "tooltip",
+                    "tooltipBackground": "rgba(230,230,230,1.0)",
+                    "tooltipColor": "rgba(30,30,30,1.0)",
+                    "locked": false
+                },
+                {
+                    "id": "71raPB7rX",
+                    "shapeProps": {
+                        "cornerRadius": 0,
+                        "fill": {
+                            "type": "solid",
+                            "color": "rgba(227, 191, 191, 1)"
+                        },
+                        "strokeColor": "rgba(30,30,30,1.0)",
+                        "strokeSize": 2,
+                        "strokePattern": "solid"
+                    },
+                    "shape": "rect",
+                    "cursor": "default",
+                    "area": {
+                        "x": 1180,
+                        "y": 180,
+                        "w": 120,
+                        "h": 60,
+                        "r": 0,
+                        "px": 0.5,
+                        "py": 0.5,
+                        "sx": 1,
+                        "sy": 1
+                    },
+                    "opacity": 100,
+                    "blendMode": "normal",
+                    "name": "Rect 12",
+                    "description": "",
+                    "links": [],
+                    "textSlots": {
+                        "body": {
+                            "text": "<p>Anfrage in Arbeit<\/p>",
+                            "bold": false,
+                            "color": "rgba(0,0,0,1.0)",
+                            "halign": "center",
+                            "valign": "middle",
+                            "fontSize": 14,
+                            "whiteSpace": "normal",
+                            "font": "Arial",
+                            "paddingLeft": 0,
+                            "paddingRight": 0,
+                            "paddingTop": 0,
+                            "paddingBottom": 0,
+                            "letterSpacing": 0
+                        }
+                    },
+                    "autoLayout": {
+                        "on": false,
+                        "rules": []
+                    },
+                    "behavior": {
+                        "events": [],
+                        "dragging": "none",
+                        "dropTo": "",
+                        "dragPath": "",
+                        "dragPathAlign": false,
+                        "dragPathRotation": 0
+                    },
+                    "selfOpacity": 100,
+                    "visible": true,
+                    "tags": [],
+                    "clip": false,
+                    "mount": true,
+                    "effects": [],
+                    "interactionMode": "tooltip",
+                    "tooltipBackground": "rgba(230,230,230,1.0)",
+                    "tooltipColor": "rgba(30,30,30,1.0)",
+                    "locked": false
+                },
+                {
+                    "id": "0KLKVnSIZ",
+                    "shapeProps": {
+                        "cornerRadius": 0,
+                        "fill": {
+                            "type": "solid",
+                            "color": "rgba(227, 191, 191, 1)"
+                        },
+                        "strokeColor": "rgba(30,30,30,1.0)",
+                        "strokeSize": 2,
+                        "strokePattern": "solid"
+                    },
+                    "shape": "rect",
+                    "cursor": "default",
+                    "area": {
+                        "x": 1300,
+                        "y": 180,
+                        "w": 200,
+                        "h": 60,
+                        "r": 0,
+                        "px": 0.5,
+                        "py": 0.5,
+                        "sx": 1,
+                        "sy": 1
+                    },
+                    "opacity": 100,
+                    "blendMode": "normal",
+                    "name": "Rect 13",
+                    "description": "",
+                    "links": [],
+                    "textSlots": {
+                        "body": {
+                            "text": "<p>Bestellung in Arbeit<\/p>",
+                            "bold": false,
+                            "color": "rgba(0,0,0,1.0)",
+                            "halign": "center",
+                            "valign": "middle",
+                            "fontSize": 14,
+                            "whiteSpace": "normal",
+                            "font": "Arial",
+                            "paddingLeft": 0,
+                            "paddingRight": 0,
+                            "paddingTop": 0,
+                            "paddingBottom": 0,
+                            "letterSpacing": 0
+                        }
+                    },
+                    "autoLayout": {
+                        "on": false,
+                        "rules": []
+                    },
+                    "behavior": {
+                        "events": [],
+                        "dragging": "none",
+                        "dropTo": "",
+                        "dragPath": "",
+                        "dragPathAlign": false,
+                        "dragPathRotation": 0
+                    },
+                    "selfOpacity": 100,
+                    "visible": true,
+                    "tags": [],
+                    "clip": false,
+                    "mount": true,
+                    "effects": [],
+                    "interactionMode": "tooltip",
+                    "tooltipBackground": "rgba(230,230,230,1.0)",
+                    "tooltipColor": "rgba(30,30,30,1.0)",
+                    "locked": false
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,25 @@
+{
+    "id": "TkJSJTJGbmFtZS5zY2hlbWlvLmpzb24",
+    "name": "name",
+    "description": "<p>descr<\/p>",
+    "tags": [],
+    "items": [
+        {
+            "id": "eZjP5yP4P",
+            "shape": "basic_star",
+            "area": {
+                "x": -434.64372030446657,
+                "y": -249.4803886921252,
+                "w": 80,
+                "h": 80
+            },
+            "name": "Star",
+            "links": [],
+            "behavior": {
+                "events": []
+            },
+            "tags": [],
+            "effects": []
+        }
+    ]
+}
