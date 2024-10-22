@@ -1,0 +1,12 @@
+[
+    {
+        "name": "npm-asset/schemio",
+        "version": "0.19.2",
+        "license": [
+	        "MPL-2.0"
+	    ],
+        "license_file": "Facades/Schemio/LICENSE",
+        "description": "Web based diagramming app that lets you build interactive diagrams and prototypes",
+        "homepage": "https://schem.io/"
+    }
+]
