@@ -32,6 +32,7 @@ class SchemioFacade extends AbstractHttpFacade
         list($appVendor, $appAlias, $pathInFacade) = explode('/', $pathInFacade, 3);
         
         $baseUrl = $this->getWorkbench()->getUrl();
+        $schemioUrl = $baseUrl . $this->getUrlRouteDefault() . '/' . $appVendor . '/' . $appAlias;
         
         // Do the routing here
         switch (true) {     
@@ -44,18 +45,9 @@ class SchemioFacade extends AbstractHttpFacade
                 break;
                 
             // e.g. assets/templates/index.json
-            case StringDataType::endsWith($pathInFacade, 'index-server.tpl.html'):
+            case StringDataType::endsWith($pathInFacade, 'index.json'):
                 $filePath = $filePath = $this->getFilePath($pathInFacade);
                 $body = file_get_contents($filePath);
-                $schemioUrl = $baseUrl . $this->getUrlRouteDefault() . '/' . $appVendor . '/' . $appAlias;
-                $routePrefix = trim((new Uri($schemioUrl))->getPath(), "/");
-                $body = str_replace([
-                        '{{ routePrefix }}'
-                    ], [
-                        $routePrefix
-                    ], 
-                    $body
-                );
                 $headers['Content-Type'] = 'text/javascript';
                 $responseCode = 200;
                 break;
@@ -98,13 +90,13 @@ class SchemioFacade extends AbstractHttpFacade
             case $pathInFacade === '':
             case $pathInFacade === 'index.html':
             default:
-                $filePath = $this->getFilePath('html' . DIRECTORY_SEPARATOR . 'index.html');
+                $filePath = $this->getFilePath('html' . DIRECTORY_SEPARATOR . 'index-server.tpl.html');
                 $body = file_get_contents($filePath);
+                $routePrefix = '/' . trim((new Uri($schemioUrl))->getPath(), "/");
                 $body = str_replace([
-                        '<head>'
+                        '{{ routePrefix }}'
                     ], [
-                        '<head>
-                            <base href="' . $schemioUrl . '/">'
+                        $routePrefix
                     ], 
                     $body
                 );
