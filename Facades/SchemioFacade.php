@@ -2,6 +2,7 @@
 namespace axenox\Sketch\Facades;
 
 use GuzzleHttp\Psr7\Uri;
+use GuzzleHttp\Psr7\Utils;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use exface\Core\Facades\AbstractHttpFacade\AbstractHttpFacade;
@@ -9,8 +10,6 @@ use GuzzleHttp\Psr7\Response;
 use exface\Core\DataTypes\StringDataType;
 use exface\Core\DataTypes\FilePathDataType;
 use exface\Core\DataTypes\MimeTypeDataType;
-use function GuzzleHttp\Psr7\stream_for;
-use exface\Core\Facades\AbstractHttpFacade\Middleware\AuthenticationMiddleware;
 use axenox\Sketch\Facades\Schemio\SchemioFs;
 
 /**
@@ -107,7 +106,7 @@ class SchemioFacade extends AbstractHttpFacade
                 
         }
         
-        return new Response(($responseCode ?? 404), $headers, stream_for($body ?? ''));
+        return new Response(($responseCode ?? 404), $headers, Utils::streamFor($body ?? ''));
     }
 
     /**
