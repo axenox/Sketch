@@ -67,7 +67,7 @@
             "CREATED_BY_USER": "0x31000000000000000000000000000000",
             "MODIFIED_BY_USER": "0x31000000000000000000000000000000",
             "UID": "0x11efb731096c89f4b731025041000001",
-            "BEHAVIOR": "exface/Core/Behaviors/WidgetModifyingBehavior.php",
+            "BEHAVIOR": "exface/core/Behaviors/WidgetModifyingBehavior.php",
             "CONFIG_UXON": {
                 "only_page_roots": true,
                 "only_on_pages": [
