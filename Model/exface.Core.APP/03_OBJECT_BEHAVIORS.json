@@ -63,7 +63,7 @@
         {
             "_EXPORT_SUMMARY": "IDE-button on Sketch-page",
             "CREATED_ON": "2024-08-26 12:14:53",
-            "MODIFIED_ON": "2024-12-16 09:16:25",
+            "MODIFIED_ON": "2026-08-18 10:18:20",
             "CREATED_BY_USER": "0x31000000000000000000000000000000",
             "MODIFIED_BY_USER": "0x31000000000000000000000000000000",
             "UID": "0x11efb731096c89f4b731025041000001",
@@ -84,7 +84,7 @@
                                 "widgets": [
                                     {
                                         "widget_type": "Browser",
-                                        "value": "=Concatenate('api/ide/atheos/', ALIAS, '/')"
+                                        "value": "=Concatenate('api/ide/codiware/repo/', ALIAS, '/')"
                                     }
                                 ]
                             }
