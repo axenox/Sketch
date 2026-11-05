@@ -3,6 +3,15 @@
     "require": {
         "exface/core": "^1.0"
     },
+	"license": [
+		"GPL-3.0+",
+		"proprietary"
+	],
+	"support": {
+		"source": "https://github.com/axenox/sketch",
+		"docs": "https://github.com/axenox/sketch/blob/master/Docs",
+		"issues": "https://github.com/axenox/sketch/issues"
+	},
     "autoload": {
         "psr-4": {
             "\\axenox\\Sketch\\": ""
